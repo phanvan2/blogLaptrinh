@@ -1,0 +1,92 @@
+
+    <div class="container_fluid">
+		<div class=" card text-center">
+			<div class=" col-sm-12 card-header">
+				<ul class="nav justify-content-start" style="position:absolute">
+					<li class="nav-item title_menu">
+						
+						<%= link_to 'Blog Lập trình ', "/",  class:"title_blog" %>
+
+					</li>
+					
+					
+					<li style="margin-left:50px">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Danh mục
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<div class="box_danhmuc" >
+								<ul class="row" style="width:100%;" align="center">
+									<li class="col-sm-3"> C </li>
+									<li class="col-sm-3"> Java </li>
+									<li class="col-sm-3"> Ruby on rails </li>
+									<li class="col-sm-3"> Thuật toán  </li>
+									<li class="col-sm-3"> PHP </li>
+									<li class="col-sm-3"> bootstrap </li>
+									<li class="col-sm-3"> Vue.js </li>
+									<li class="col-sm-3"> JavaScript </li>
+									<li class="col-sm-3"> bootstrap </li>
+									<li class="col-sm-3"> Vue.js </li>
+									<li class="col-sm-3"> JavaScript </li>
+									<li class="col-sm-3"> Khác </li>
+									
+								</ul>
+							</div>
+						</ul>
+					</li>
+					<li>
+						<a class="nav-link active" href="#">Nổi bật</a>
+					</li>
+					
+				</ul>
+				<form class="form_search" >
+					<input type="search" class="form-control form-control-dark" placeholder="Nhập từ khóa tìm kiếm">
+				</form>
+				<ul class="nav justify-content-end ">
+				
+						<% if session[:current_user_id] %>
+							<%  user = User.find_by_id(session[:current_user_id]) %>
+							<% paramProfile = "/user/" + user.id.to_s + "/profile"  %>
+							<% paramEdit = "/user/" + user.id.to_s + "/update"  %>
+							<li>
+								<%= link_to user.username , paramProfile,  class:"nav-link" %>	
+								
+							</li>
+							<li>
+								<i 
+									class='fas fa-user-circle ' 
+									id="navbarDropUser" 
+									style='font-size:26px; margin-top:10px; color:#3a4dd4;' 
+									role="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="dropdown-toggle" style="font-size:20px; padding:5px ; "></span></i>
+									
+								<ul class="dropdown-menu dropdown-menu-end">
+									<li>
+										<button class="dropdown-item" type="button">
+											<%= link_to 'Thông tin', paramProfile,  class:"" %> 
+										</button>
+									</li>
+									<li>
+										<button class="dropdown-item" type="button">
+											<%= link_to 'Cập nhật thông tin', paramEdit,  class:"" %> 
+										</button>
+									</li>
+									<li>
+										<button class="dropdown-item" type="button">
+											<%= link_to 'Đăng Xuất', "logout" %> 
+										</button>
+									</li>
+								</ul>
+							</li>
+						<% else %>
+							<li>
+								<%= link_to 'Đăng Nhập', "/login",  class:"nav-link btn-primary btn_login" %> 
+							</li>
+							<li>
+								<%= link_to 'Đăng ký', "/register",  class:"nav-link btn-primary btn_register" %>
+							</li>
+						<% end %>
+				</ul>
+			</div>
+		</div>
+
+

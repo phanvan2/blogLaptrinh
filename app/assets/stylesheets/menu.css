@@ -1,0 +1,25 @@
+.title_menu{
+    margin-left: 100px;
+    margin-top: 5px;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: sans-serif;
+    color: #4b5057;
+    
+}
+.title_blog{
+    text-decoration: none;
+}
+.btn_login{
+    border-radius: 5px;
+    margin-top: 5px;
+    height: 40px;
+    margin-right:10px; 
+   
+}
+.btn_register{
+    border-radius: 5px;
+    margin-top: 5px;
+    height: 40px;
+    margin-right: 100px;
+}
