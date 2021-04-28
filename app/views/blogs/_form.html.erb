@@ -1,0 +1,65 @@
+                <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+
+<%= form_with(model: blog) do |form| %>
+  <% if blog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
+
+      <ul>
+        <% blog.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%# <div class="field"> %>
+    <%# <%= form.label :idUser %> 
+    <%# <%= form.number_field :idUser %> 
+  <%# </div> %>
+
+  <%# <div class="field"> %>
+    <%# <%= form.label :idCategory %>
+    <%# <%= form.number_field :idCategory %>
+  <%# </div> %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :abstract %>
+    <%= form.text_field :abstract %>
+  </div>
+
+  <div class="field col-sm-5" style="display:none">
+    <%= form.label :content %>
+    <%= form.text_field :content %>
+  </div>
+	<input type="text" id="content">
+  <div class="field">
+    <%= form.label :img %>
+    <%= form.text_field :img %>
+  </div>
+
+  <%# <div class="field"> %>
+    <%# <%= form.label :status %>
+    <%# <%= form.number_field :status %> 
+  <%# </div> %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+ 
+<% end %>
+
+ <button onclick="getContent()" > get</button>
+   <script>
+       var editor = CKEDITOR.replace( 'content' ); 
+      	editor.on( 'change', function( evt ) {
+			$('#blog_content').val(evt.editor.getData())  
+			console.log( evt.editor.getData()) ; 
+		});
+    
+     </script>

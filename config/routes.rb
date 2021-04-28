@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :blogs
   get 'footer/index'
   get 'menu/index'
   resources :users
@@ -9,7 +10,7 @@ Rails.application.routes.draw do
   get "user/update", to: 'users#edit'
   get 'login', to: 'users#login'
   post 'session' => 'session#create'
-  get 'logout' => 'session#destroy'
+  get '/logout' => 'session#destroy'
   get 'user/:id/profile', to: 'users#show'
   get 'user/:id/update', to: 'users#edit'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

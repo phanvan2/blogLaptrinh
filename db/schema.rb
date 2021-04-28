@@ -10,13 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_23_151816) do
+ActiveRecord::Schema.define(version: 2021_04_25_090756) do
+
+  create_table "blogs", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "idUser"
+    t.integer "idCategory"
+    t.string "title"
+    t.string "abstract"
+    t.string "content"
+    t.string "img"
+    t.integer "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "username"
     t.string "email"
     t.string "password_digest"
-    t.integer "quyen"
+    t.integer "quyen", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

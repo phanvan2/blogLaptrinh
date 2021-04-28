@@ -22,6 +22,7 @@
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+<%= count_blog = Blog.where("idUser = "+ params[:id].to_s).distinct.count(:id) %>
 <div class="container">
 			<div class="ass1-head-user">
 				<div class="ass1-head-user__content">
@@ -39,12 +40,13 @@
 							<!-- <a href="#" class="ass1-head-user__btn-options ass1-btn-icon"><i class="icon-Options"></i></a> -->
 						</div>
 						<div class="ass1-head-user__info-statistic">
-							<div class="ass1-btn-icon"><i class="icon-Post"></i><span>Bài viết: 9999</span></div>
+							<div class="ass1-btn-icon"><i class="icon-Post"></i><span>Bài viết: <%= count_blog %></span></div>
 							<div class="ass1-btn-icon"><i class="icon-Followers"></i><span>Theo dõi: 99999</span></div>
 							<div class="ass1-btn-icon"><i class="icon-Following"></i><span>Đang theo dõi: 999</span></div>
 							<!-- <div class="ass1-btn-icon"><i class="icon-Upvote"></i><span>Up Vote: 999999</span></div> -->
 						</div>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+					
 					</div>
 				</div>
 			</div>

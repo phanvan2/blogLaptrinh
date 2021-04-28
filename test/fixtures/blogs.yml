@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  idUser: 1
+  idCategory: 1
+  title: MyString
+  abstract: MyString
+  content: MyString
+  img: MyString
+  status: 1
+
+two:
+  idUser: 1
+  idCategory: 1
+  title: MyString
+  abstract: MyString
+  content: MyString
+  img: MyString
+  status: 1

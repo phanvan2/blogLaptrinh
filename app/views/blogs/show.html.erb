@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8">
+			<div class="post">
+				<h3><%= @blog.title %></h3>
+				<p class="post-created"> <%= @blog.created_at %> </p>
+				<div class="row">
+				<div class="col-sm-12">
+				<p class="post-abstract">
+					<%= @blog.abstract %>
+				</p>
+				<hr/>
+				<div class="post-content" style="width:80%">
+				<%= raw @blog.content%> 
+				</div>
+				
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<% user = User.find_by_id(@blog.idUser) %>
+			<div class="card-user"> 
+				<img >
+				<p> <%= user.username %> </p>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<%= link_to 'Edit', edit_blog_path(@blog) %> |
+<%= link_to 'Back', blogs_path %>
