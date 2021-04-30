@@ -1,46 +1,33 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Password digest:</strong>
-  <%= @user.password_digest %>
-</p>
-
-<p>
-  <strong>Quyen:</strong>
-  <%= @user.quyen %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
-<%= count_blog = Blog.where("idUser = "+ params[:id].to_s).distinct.count(:id) %>
+<%  %>
 <div class="container">
 			<div class="ass1-head-user">
 				<div class="ass1-head-user__content">
-					<div class="ass1-head-user__image"><a href="#"><img src="images/cat-1634369_1920.jpg" alt=""></a></div>
+					<div class="ass1-head-user__image">
+						<a href="#">
+							<%= image_tag("IMG_E0749.JPG")  %>
+						</a>
+					</div>
 					<div class="ass1-head-user__info">
 						<div class="ass1-head-user__info-head">
 							<div class="ass1-head-user__name">
 								<span>  <%= @user.username %></span> 
 								<i><img src="fonts/emotion/svg/Verified.svg" alt=""></i>
 							</div>
-							<div class="w-100 btn_header"></div>
+							<div class="w-100 btn_header">
+								<% if @user.quyen == 1 %>
+									Người quản trị
+								<% else %>
+									user
+								<% end %>
+							</div>
 							<a href="#" class="ass1-head-user__btn-follow ass1-btn">Theo dõi</a>
 							<a href="thay-doi-password.html" class="ass1-head-user__btn-follow ass1-btn">Đổi mật khẩu</a>
 							<a href="profile.html" class="ass1-head-user__btn-follow ass1-btn">Profile</a>
 							<!-- <a href="#" class="ass1-head-user__btn-options ass1-btn-icon"><i class="icon-Options"></i></a> -->
 						</div>
 						<div class="ass1-head-user__info-statistic">
-							<div class="ass1-btn-icon"><i class="icon-Post"></i><span>Bài viết: <%= count_blog %></span></div>
+							<div class="ass1-btn-icon"><i class="icon-Post"></i><span>Bài viết: <%= @count_blog %></span></div>
 							<div class="ass1-btn-icon"><i class="icon-Followers"></i><span>Theo dõi: 99999</span></div>
 							<div class="ass1-btn-icon"><i class="icon-Following"></i><span>Đang theo dõi: 999</span></div>
 							<!-- <div class="ass1-btn-icon"><i class="icon-Upvote"></i><span>Up Vote: 999999</span></div> -->

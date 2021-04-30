@@ -16,20 +16,25 @@
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<div class="box_danhmuc" >
-								<ul class="row" style="width:100%;" align="center">
-									<li class="col-sm-3"> C </li>
-									<li class="col-sm-3"> Java </li>
-									<li class="col-sm-3"> Ruby on rails </li>
-									<li class="col-sm-3"> Thuật toán  </li>
-									<li class="col-sm-3"> PHP </li>
-									<li class="col-sm-3"> bootstrap </li>
-									<li class="col-sm-3"> Vue.js </li>
-									<li class="col-sm-3"> JavaScript </li>
-									<li class="col-sm-3"> bootstrap </li>
-									<li class="col-sm-3"> Vue.js </li>
-									<li class="col-sm-3"> JavaScript </li>
-									<li class="col-sm-3"> Khác </li>
-									
+								
+
+								 <ul class="row" style="width:100%;" align="center">
+								 
+								<% category = Category.all%>
+								<% category.each do |category|%>
+									<li class="col-sm-3"><%= category.name %> </li>
+										<%# <li class="col-sm-3"> Java </li>
+										<li class="col-sm-3"> Ruby on rails </li>
+										<li class="col-sm-3"> Thuật toán  </li>
+										<li class="col-sm-3"> PHP </li>
+										<li class="col-sm-3"> bootstrap </li>
+										<li class="col-sm-3"> Vue.js </li>
+										<li class="col-sm-3"> JavaScript </li>
+										<li class="col-sm-3"> bootstrap </li>
+										<li class="col-sm-3"> Vue.js </li>
+										<li class="col-sm-3"> JavaScript </li>
+										<li class="col-sm-3"> Khác </li>  %>
+								<% end %>
 								</ul>
 							</div>
 						</ul>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :categories
   resources :blogs
   get 'footer/index'
   get 'menu/index'
@@ -8,10 +9,13 @@ Rails.application.routes.draw do
   get 'register', to: 'users#new'
   get 'menu' , to: 'menu#index'
   get "user/update", to: 'users#edit'
-  get 'login', to: 'users#login'
+  #get 'login', to: 'users#login'
   post 'session' => 'session#create'
   get '/logout' => 'session#destroy'
   get 'user/:id/profile', to: 'users#show'
   get 'user/:id/update', to: 'users#edit'
+  get '/login' => 'session#index'
+
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

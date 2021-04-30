@@ -27,5 +27,9 @@
 	<div class="container_fluid" style="height:80px">
 	</div>
 	<%= render "footer/index" %>
+  
+    <% if alert  %>
+       <%= javascript_tag "alert('" + alert + "')" %>
+    <% end%>
   </body>
 </html>

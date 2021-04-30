@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    @count_blog = Blog.where("idUser = "+ params[:id].to_s).distinct.count(:id)
   end
 
   # GET /users/new
