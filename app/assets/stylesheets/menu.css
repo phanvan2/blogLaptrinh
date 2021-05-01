@@ -1,3 +1,4 @@
+
 .title_menu{
     margin-left: 100px;
     margin-top: 5px;
@@ -8,6 +9,7 @@
     
 }
 .title_blog{
+    color: #000 ; 
     text-decoration: none;
 }
 .btn_login{

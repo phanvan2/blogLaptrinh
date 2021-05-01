@@ -1,27 +1,38 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Categories</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @categories.each do |category| %>
-      <tr>
-        <td><%= category.name %></td>
-        <td><%= link_to 'Show', category %></td>
-        <td><%= link_to 'Edit', edit_category_path(category) %></td>
-        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<p> <%= params.permit("page")%>
 
+<h2>Danh mục</h2>
 <br>
 
-<%= link_to 'New Category', new_category_path %>
+<div class="table-wrapper">
+    <table class="fl-table">
+        <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên Danh mục</th>
+            <th>Xem blog</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+			<% stt = 1 %>
+          <% @categories.each do |category| %>
+   
+        <tr>
+            <td><%= stt %></td>
+            <td><%= category.name %></td>
+            <td><button><%= link_to 'Xem blogs', "/search?idCategory="+category.id.to_s %>  </button></td>
+       		<td><button><%= link_to 'Sửa', edit_category_path(category) %> </button></td>
+        	<td><button><%= link_to 'Xóa', category, method: :delete, data: { confirm: 'Bạn có muốn xóa danh mục '+category.name+ ' này ko?' } %></button></td>
+        </tr>
+		<% stt = stt+ 1%>
+        <% end %>
+
+        <tbody>
+    </table>
+</div>
+<button><%= link_to 'Thêm danh mục', new_category_path %></button>

@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   # GET /users/1 or /users/1.json
   def show
     @count_blog = Blog.where("idUser = "+ params[:id].to_s).distinct.count(:id)
+    @blogs_user = Blog.where("idUser = " +params[:id].to_s).order(created_at: :desc)
   end
 
   # GET /users/new
@@ -42,7 +43,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1 or /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update(username:user_params[:username] , email:user_params[:email] )
         format.html { redirect_to @user, notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else

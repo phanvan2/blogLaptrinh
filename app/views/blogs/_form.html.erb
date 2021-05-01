@@ -1,5 +1,31 @@
-                <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+		<div class="container" align="center">
+			 <div class="row card_item">
+					<div class="col-lg-5">
+						<div class="main_img">
+							<%= image_tag "loi-hien-thi.png",style: "width:100% ;  height:220px", id:"imgshow" %> 
+						</div>
+					</div>
+					<div class="col-lg-7">
+						<div class="title">
+							<h4 id="title_demo"> title demo </h4>
+						</div>
+						<div class="detail">
+							<p id="abstract_demo">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde nisi ea, cupiditate expedita nostrum dolorem tempore nemo iste odit, architecto ducimus! Consequatur suscipit dolores iste voluptatem sint corrupti saepe cupiditate!</p>
+							
+						</div>
+						<div class="card_footer">
+							<span class="author">Tác giả: <i>Blog lap trinh</i> </span>
+							<span class="create_at">12/12/2002</span>
+						</div>
+						
+					</div>
+			
+			</div>
+			
+		
+		</div>
 
+<div class="container">
 <%= form_with(model: blog) do |form| %>
   <% if blog.errors.any? %>
     <div id="error_explanation">
@@ -14,52 +40,75 @@
   <% end %>
 
   <%# <div class="field"> %>
-    <%# <%= form.label :idUser %> 
-    <%# <%= form.number_field :idUser %> 
-  <%# </div> %>
-
-  <%# <div class="field"> %>
     <%# <%= form.label :idCategory %>
     <%# <%= form.number_field :idCategory %>
   <%# </div> %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="form-group">
+    <%= form.label :title  %>
+    <%= form.text_field :title, class:"form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :abstract %>
-    <%= form.text_field :abstract %>
+    <%= form.text_field :abstract,class:"form-control" %>
   </div>
 
-  <div class="field col-sm-5" style="display:none">
-    <%= form.label :content %>
-    <%= form.text_field :content %>
+  <div class="form-group" >
+    <%= form.label :content%>
+    <%= form.text_field :content, class:"form-control" , style:"display: none;" %>
   </div>
 	<input type="text" id="content">
-  <div class="field">
-    <%= form.label :img %>
-    <%= form.file_field :img %>
+
+  <div class="form-group">
+    <% if blog.img.attached? %> 
+    <%= image_tag blog.img,style: "width: 350px;height: 220px;display: block;margin-left:100px", id:"imgshow" %> 
+    <%end%>   
+    <%= form.label :img, "ảnh Blog" %>
+    <%= form.file_field :img,class: 'form-control' %>
+    
+	<br>
   </div>
-
-  <%# <div class="field"> %>
-    <%# <%= form.label :status %>
-    <%# <%= form.number_field :status %> 
-  <%# </div> %>
-
   <div class="actions">
     <%= form.submit %>
   </div>
  
 <% end %>
 
+
  <button onclick="getContent()" > get</button>
-   <script>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>	
+<script>
        var editor = CKEDITOR.replace( 'content' ); 
       	editor.on( 'change', function( evt ) {
 			$('#blog_content').val(evt.editor.getData())  
 			console.log( evt.editor.getData()) ; 
 		});
-    
-     </script>
+
+
+	// đọc file img 
+  	$('document').ready(function () { 
+    	$("#blog_img").change(function () {
+        	if (this.files && this.files[0]) {
+            	var reader = new FileReader();
+            	reader.onload = function (e) {
+                	$('#imgshow').attr('src', e.target.result);
+            	}
+            	reader.readAsDataURL(this.files[0]);
+        	}
+    	});
+
+		$("#blog_title").change(function () {  // thay đổi tiêu đề đemo x
+			document.getElementById("title_demo").innerHTML = $("#blog_title").val()
+	
+		});
+		$("#blog_abstract").change(function () {  // thay đổi tiêu đề đemo x
+			document.getElementById("abstract_demo").innerHTML = $("#blog_abstract").val()
+	
+		});
+	});
+</script>

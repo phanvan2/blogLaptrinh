@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 <div class="container">
 	<div class="row">
 		<div class="col-sm-8">
@@ -6,6 +5,13 @@
 				<h3><%= @blog.title %></h3>
 				<p class="post-created"> <%= @blog.created_at %> </p>
 				<div class="row">
+				<div class="col-sm-12" align="center">
+					  	<% if @blog.img.attached? %> 
+							<%= image_tag @blog.img,style: "width: 80%; height:400px ; display: block" %> 
+						<% else %>
+							<%= image_tag "loi-hien-thi.png",style: "width: 80%; height:400px ; display: block" %> 
+						<%end%>  
+				</div>
 				<div class="col-sm-12">
 				<p class="post-abstract">
 					<%= @blog.abstract %>
@@ -27,6 +33,7 @@
 			</div>
 		</div>
 	</div>
+
 </div>
 
 

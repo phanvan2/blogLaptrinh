@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'search_blog/index'
   resources :categories
   resources :blogs
   get 'footer/index'
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
   get 'user/:id/profile', to: 'users#show'
   get 'user/:id/update', to: 'users#edit'
   get '/login' => 'session#index'
+  get '/search' => 'search_blog#index'
 
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

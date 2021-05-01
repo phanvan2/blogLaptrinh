@@ -16,25 +16,12 @@
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<div class="box_danhmuc" >
-								
-
-								 <ul class="row" style="width:100%;" align="center">
-								 
-								<% category = Category.all%>
-								<% category.each do |category|%>
-									<li class="col-sm-3"><%= category.name %> </li>
-										<%# <li class="col-sm-3"> Java </li>
-										<li class="col-sm-3"> Ruby on rails </li>
-										<li class="col-sm-3"> Thuật toán  </li>
-										<li class="col-sm-3"> PHP </li>
-										<li class="col-sm-3"> bootstrap </li>
-										<li class="col-sm-3"> Vue.js </li>
-										<li class="col-sm-3"> JavaScript </li>
-										<li class="col-sm-3"> bootstrap </li>
-										<li class="col-sm-3"> Vue.js </li>
-										<li class="col-sm-3"> JavaScript </li>
-										<li class="col-sm-3"> Khác </li>  %>
-								<% end %>
+								<ul class="row" style="width:100%;" align="center">
+								 <%# get danh sách danh muucj %>
+									<% category = Category.all%>
+									<% category.each do |category|%>
+										<li class="col-sm-3"><%= link_to category.name, "/search?idCategory=" + category.id.to_s%> </li> 
+									<% end %>
 								</ul>
 							</div>
 						</ul>
@@ -44,9 +31,14 @@
 					</li>
 					
 				</ul>
-				<form class="form_search" >
+				<%= form_with url:'/search', method: :get, html:{class:"form_search"} do |f| %>
+					<%# <input type="search" class="form-control form-control-dark" placeholder="Nhập từ khóa tìm kiếm"> %>
+					<%= f.text_field :search, class: "form-control form-control-dark", placeholder: "Nhập từ khóa tìm kiếm" %>
+
+			  	<% end %>
+				<%# <form class="form_search" >
 					<input type="search" class="form-control form-control-dark" placeholder="Nhập từ khóa tìm kiếm">
-				</form>
+				</form> %>
 				<ul class="nav justify-content-end ">
 				
 						<% if session[:current_user_id] %>
@@ -78,6 +70,11 @@
 									<li>
 										<button class="dropdown-item" type="button">
 											<%= link_to 'Đăng bài', '/blogs/new',  class:"" %> 
+										</button>
+									</li>
+									<li>
+										<button class="dropdown-item" type="button">
+											<%= link_to 'Quản lý danh mục', '/categories',  class:"" %> 
 										</button>
 									</li>
 									<li>

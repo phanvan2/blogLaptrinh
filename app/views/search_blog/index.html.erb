@@ -1,0 +1,73 @@
+
+<style>
+.mark ,mark{
+    background-color: #ffff00;
+}
+</style>
+		<div class="container" style="width:81%">
+			<h3 class="title_main">
+                <% if params[:idCategory] %>
+                <%= "Danh muc: " + Category.find_by(id: + params[:idCategory]).name%>  
+                <% end %>
+
+            </h3>
+            <h3> Kết quả tìm kiếm 
+                 <% if params[:search]  %>
+                  ( <mark> <%= params[:search] %></mark>)
+                    <% end%>
+                <span style="color:red">  
+                    : <%= @count_blog%> 
+                </span>  
+            </h3>
+			<div class="row ">
+					<% @blogSearch.each do |blog|%>
+				<div class="col-lg-4" style="">
+					<div class="card_blog">
+						<div class="col-sm-12 cardBlog_img">
+							<% if blog.img.attached? %> 
+								<%= image_tag blog.img,style: "width: 100%; height:220px ; display: block" %> 
+							<% else %>
+								<%= image_tag "loi-hien-thi.png",style: "width:100% ;  height:220px" %> 
+							<%end%>  
+							<%# <img src="https://codelearn.io/Upload/Blog/can-bang-phuong-trinh-hoa-hoc-bang-cpp-63752466266.5863.jpg" > %>
+						</div>
+						<div class="col-sm-12 cardBolg_body">
+							<p class="cardblog_title"> 
+                            <% if params[:search]  %>
+                                <%= link_to raw(blog.title.gsub(params[:search] , "<mark>"+ params[:search]+ "</mark>")), "/blogs/" + blog.id.to_s%> 
+                            <% else %>
+                               <%= link_to blog.title, "/blogs/" + blog.id.to_s%> 
+                            <% end%>
+                            </p>
+							<% if blog.abstract.length <= 85%>
+								<span class="cardBlog_detail">  <%= blog.abstract %></span>
+							<% else %>
+								<span class="cardBlog_detail">  
+									<%= blog.abstract[0..85] %>...
+								</span>
+							<%end %>
+							<div class="row">
+								<div class="col-sm-12 card_danhmuc">
+									<span class="card_titleDanhmuc">Thuật toán </span>
+									<span class="card_titleDanhmuc"> Java </span>
+									<span class="card_titleDanhmuc"> C </span>
+								</div>
+							</div>
+						</div>
+						<div class=" col-sm-12 cardBlog_footer">
+							<hr/>
+							<span class="author"> <%= User.find_by_id(blog.idUser).username %> </span>
+							<span class="create_at"> <%= blog.created_at.strftime("%d/%m/%Y") %> </span>
+							<span class="sharing"><i class='fas fa-share-alt' style='font-size:24px'></i></span>
+
+						</div>
+					</div>
+					
+				</div>
+				<% end %>
+
+			
+				
+			
+			</div>
+		</div>
