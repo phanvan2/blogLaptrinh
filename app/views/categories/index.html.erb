@@ -3,10 +3,8 @@
 
 
 <p> <%= params.permit("page")%>
-
 <h2>Danh mục</h2>
 <br>
-
 <div class="table-wrapper">
     <table class="fl-table">
         <thead>
@@ -20,7 +18,7 @@
         </thead>
         <tbody>
 			<% stt = 1 %>
-          <% @categories.each do |category| %>
+            <% @categories.each do |category| %>
    
         <tr>
             <td><%= stt %></td>

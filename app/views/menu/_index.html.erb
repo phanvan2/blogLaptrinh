@@ -17,7 +17,7 @@
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<div class="box_danhmuc" >
 								<ul class="row" style="width:100%;" align="center">
-								 <%# get danh sách danh muucj %>
+								 	<%# get danh sách danh muucj %>
 									<% category = Category.all%>
 									<% category.each do |category|%>
 										<li class="col-sm-3"><%= link_to category.name, "/search?idCategory=" + category.id.to_s%> </li> 
@@ -75,6 +75,16 @@
 									<li>
 										<button class="dropdown-item" type="button">
 											<%= link_to 'Quản lý danh mục', '/categories',  class:"" %> 
+										</button>
+									</li>
+									<li>
+										<button class="dropdown-item" type="button">
+											<%= link_to 'Quản lý User', '/users',  class:"" %> 
+										</button>
+									</li>
+									<li>
+										<button class="dropdown-item" type="button">
+											<%= link_to 'Quản lý bài viét', '/blogs',  class:"" %> 
 										</button>
 									</li>
 									<li>

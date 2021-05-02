@@ -23,17 +23,18 @@ class BlogsController < ApplicationController
   def create
     if session[:current_user_id] 
       idUser = session[:current_user_id] 
-      idCategory = 1 
+      idCategory = blog_params[:idCategory]
       title = blog_params[:title] 
       abstract = blog_params[:abstract] 
       content = blog_params[:content]
       img = blog_params[:img]
+
       status = 0 
       @blog = Blog.new(idUser:idUser,idCategory: idCategory,title: title, abstract: abstract,content: content,img: img,status: status)
 
       respond_to do |format|
         if @blog.save
-          format.html { redirect_to @blog, alert: "Blog was successfully created." }
+          format.html { redirect_to @blog, alert: idCategory }
           format.json { render :show, status: :created, location: @blog }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -76,6 +77,6 @@ class BlogsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def blog_params
-      params.require(:blog).permit(:title, :abstract, :content, :img )
+      params.require(:blog).permit(:title, :abstract, :content, :img,:idCategory )
     end
 end

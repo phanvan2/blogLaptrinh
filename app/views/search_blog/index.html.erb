@@ -48,9 +48,16 @@
 							<%end %>
 							<div class="row">
 								<div class="col-sm-12 card_danhmuc">
-									<span class="card_titleDanhmuc">Thuật toán </span>
-									<span class="card_titleDanhmuc"> Java </span>
-									<span class="card_titleDanhmuc"> C </span>
+									<% if blog.idCategory.length > 2 %> <%# xử lý idCategory trong blog %>
+										<% count_idcategory =  blog.idCategory.length - 2 %>
+									<% else %>
+										<%count_idcategory =  blog.idCategory.length - 1 %>
+									<% end%>
+									<%# lấy ra danh  muc theo query select + categoru where id IN (1,2,3) %>
+									<%  categories =  Category.where(id: blog.idCategory[0..count_idcategory].split(",") ) %> 
+									<% categories.each do |cate| %>
+										<span class="card_titleDanhmuc"><%= cate.name%> </span>
+									<% end%>
 								</div>
 							</div>
 						</div>

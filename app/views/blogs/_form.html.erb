@@ -38,12 +38,36 @@
       </ul>
     </div>
   <% end %>
+			<% if blog.idCategory.length > 2 %> <%# xử lý idCategory trong blog %>
+				<% count_idcategory =  blog.idCategory.length - 2 %>
+			<% else %>
+				<%count_idcategory =  blog.idCategory.length - 1 %>
+			<% end%>
+  <div class="field">
+     <%= form.label :idCategory %>
+	 <div class="row">
+	 	<%  category = Category.all %>
+	 	<% category.each do |category|%>
+		<div class="col-sm-1">		
+				<%if  blog.idCategory[0..count_idcategory].split(",").find_index(category.id.to_s ) %>
+				<% 	check = "checked" %>
+				<% else %>
+				<% check = "" %>
+				<%end%>
+			<input type="checkbox" name=<%= "category_demo"%> value=<%= category.id %> <%= check%> > 
+			<label> <%= category.name%></label>
+			     
+	
+		</div>
+		<%end%>
+	 </div>
+ 
 
-  <%# <div class="field"> %>
-    <%# <%= form.label :idCategory %>
-    <%# <%= form.number_field :idCategory %>
-  <%# </div> %>
 
+  </div>
+
+    <%= form.text_field :idCategory,class:"form-control" %>
+ 
   <div class="form-group">
     <%= form.label :title  %>
     <%= form.text_field :title, class:"form-control" %>
@@ -109,6 +133,18 @@
 		$("#blog_abstract").change(function () {  // thay đổi tiêu đề đemo x
 			document.getElementById("abstract_demo").innerHTML = $("#blog_abstract").val()
 	
+		});
+		$("input[type='checkbox']").change(function () {  // thay đổi tiêu đề đemo x
+		   var checkbox = document.getElementsByName('category_demo');
+		   var result ='';
+			console.log(checkbox.length) ; 
+			 for (var i = 0; i < checkbox.length; i++){
+                    if (checkbox[i].checked === true){
+                        result += '' + checkbox[i].value + ',';
+                    }
+                }
+			console.log(result)
+			console.log($("#blog_idCategory").val(result))
 		});
 	});
 </script>
