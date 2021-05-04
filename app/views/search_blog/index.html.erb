@@ -4,21 +4,26 @@
     background-color: #ffff00;
 }
 </style>
+
 		<div class="container" style="width:81%">
 			<h3 class="title_main">
+				<% url =  "" %>
                 <% if params[:idCategory] %>
-                <%= "Danh muc: " + Category.find_by(id: + params[:idCategory]).name%>  
+					<% url = "idCategory="+params[:idCategory] %>
+                	<%= "Danh muc: " + Category.find_by(id: + params[:idCategory]).name%>  
                 <% end %>
 
             </h3>
             <h3> Kết quả tìm kiếm 
                  <% if params[:search]  %>
+				 	<% url = "search="+params[:search] %>
                   ( <mark> <%= params[:search] %></mark>)
                     <% end%>
                 <span style="color:red">  
-                    : <%= @count_blog%> 
+                    : <%= @count_blog %> 
                 </span>  
             </h3>
+		
 			<div class="row ">
 					<% @blogSearch.each do |blog|%>
 				<div class="col-lg-4" style="">
@@ -78,3 +83,16 @@
 			
 			</div>
 		</div>
+<div class="container" align="center" style="padding:3px 40%">
+	<nav aria-label="Page navigation example"  align="center">
+		<ul class="pagination">
+			<li class="page-item"><%= link_to "first", "/search?"+url+"&page=1" , class:"page-link"  %> </li>
+			<% for i in 1..@total_page %>
+			<%# <li class="page-item"><a class="page-link" href="#"><%= i  </a></li> %>
+			<li class="page-item"><%= link_to i, "/search?"+url+"&page="+i.to_s , class:"page-link"  %> </li>
+			<% end%>
+			<li class="page-item"><%= link_to "last", "/search?"+url+"&page="+ @total_page.to_s , class:"page-link"  %> </li>
+
+		</ul>
+	</nav>
+</div>

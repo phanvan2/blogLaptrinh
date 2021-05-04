@@ -3,7 +3,24 @@ class BlogsController < ApplicationController
 
   # GET /blogs or /blogs.json
   def index
-    @blogs = Blog.all
+  
+	limit = 8
+	start = 0
+	@count_blog =  Blog.count()
+	@total_page  = (@count_blog.to_f / limit)
+
+	if (params[:page]) 
+		current_page = params[:page]
+		if (@count_blog.to_f / limit) > (@count_blog / limit)
+			@total_page = (@count_blog / limit) + 1
+		else 
+			@total_page = (@count_blog / limit) 
+		end
+		start = (current_page.to_i - 1 ) * limit
+		
+	end
+
+	@blogs = Blog.order(created_at: :desc).limit(limit).offset(start)
   end
 
   # GET /blogs/1 or /blogs/1.json

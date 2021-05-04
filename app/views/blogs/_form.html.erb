@@ -38,6 +38,7 @@
       </ul>
     </div>
   <% end %>
+		<% if blog.idCategory %> 
 			<% if blog.idCategory.length > 2 %> <%# xử lý idCategory trong blog %>
 				<% count_idcategory =  blog.idCategory.length - 2 %>
 			<% else %>
@@ -65,7 +66,21 @@
 
 
   </div>
-
+		<% else %>
+	  <div class="field">
+     <%= form.label :idCategory %>
+	 <div class="row">
+	 	<%  category = Category.all %>
+	 	<% category.each do |category|%>
+		<div class="col-sm-1">		
+				
+			<input type="checkbox" name=<%= "category_demo"%> value=<%= category.id %>  > 
+			<label> <%= category.name%></label>
+		</div>
+		<%end%>
+	 </div>
+  </div>
+	<% end %>
     <%= form.text_field :idCategory,class:"form-control" %>
  
   <div class="form-group">
