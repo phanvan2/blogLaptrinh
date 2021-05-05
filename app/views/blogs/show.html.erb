@@ -1,7 +1,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-sm-8">
+		<div class="col-sm-10">
 			<div class="post">
 				<h3><%= @blog.title %></h3>
 				<p class="post-created"> <%= @blog.created_at %> </p>
@@ -26,34 +26,25 @@
 			</div>
 			</div>
 		</div>
-		<div class="col-sm-4">
-			<% user = User.find_by_id(@blog.idUser) %>
-			<div class="card-user"> 
-				<img >
-				<p> <%= user.username %> </p>
-			</div>
-		</div>
+	
 	</div>
 
 </div>
 
-<div class="container">
+<div class="container" style="margin-top:10px">
 	<div class="row">
 		<div class="col-lg-offset-2">
 			<%= form_with url:'/comments1/create?idBlog=' + @blog.id.to_s, method: :post, html: {class: "form-horizontal"} do |f| %> <%= token_tag%>
-			<div class="form-group">
-				<%= f.label :content, "Name", class: "col-md-2 control-label" %>
+			<div class="form-group row">
+			
 				<div class="col-md-6">
 				<%= f.text_field :content, class: "form-control", placeholder: "Nhập bình luận của bạn " %>
 				</div>
-			</div>
-
-			
-			<div class="form-group">
-				<div class="col-lg-offset-4">
-				<%= f.submit "Login", class: "btn btn-success" %>
+				<div  class="col-md-3">
+					<%= f.submit "Bình luận", class: "btn btn-success" %>
 				</div>
 			</div>
+
 			<% end %>
 			<%= notice%>
 
@@ -63,19 +54,70 @@
 	<div class="row">
 		<% if @comments %>
 			<%  @comments.each do |comment| %>
+			<% user_comment = User.find_by_id(comment.idUser)%>
 			<div class="comment">
 				
 				<div class="head_comment">
-					<% if User.find_by_id(session[:current_user_id] ).img.attached? %> 
-						<%= image_tag @blog.img,style: "width: 45px; height:45px ; display: inline-block; border-radius:45px" %> 
+					<% if user_comment.img_user.attached? %> 
+						<%= image_tag user_comment.img_user,style: "width: 45px; height:45px ; display: inline-block; border-radius:45px" %> 
 					<% else %>
-						<%= image_tag "img_avatar.png",style: "width: 50px; height:50px ; display: inline-block; border-radius:50px" %> 
-					<%end%>  
-					<b><%= User.find_by_id(comment.idUser).username %></b>
+						<%= image_tag "img_avatar.png",style: "width: 45px; height:45px ; display: inline-block; border-radius:45px" %> 
+					<% end%>    
+					<b><%= user_comment.username %></b>
 					<span style="margin-left:100px"><%= comment.created_at.strftime("%d/%m/%Y %r")	 %></span>
 				</div>
 				<div class="content_comment">
-					<div style="margin-left:50px;"><%=  comment.content %></div>
+					<div style="margin-left:50px;">
+						<%=  comment.content %>
+						
+							<span class="btn binhluan-btn-traloi" onclick="toggle_comment(	'#control_reply'+ <%= comment.id %>)">Trả lời</span>
+							<span class="btn fas fa-angle-down binhluan-btn-down" onclick="toggle_comment(	'#View_reply'+ <%= comment.id %>)" id="btn" aria-hidden="true"></span>	
+
+					</div>
+
+				</div>
+				<%# input trả lời bình luận %>
+				<div class="control_reply_coment"  id="control_reply<%= comment.id %>">
+					
+						<%= form_with url:'/reply_comments/create?idBlog=' + @blog.id.to_s + '&idComment=' + comment.id.to_s, method: :post, html: {class: "form-horizontal"} do |f| %> <%= token_tag%>
+							<div class="form-group row">
+								<div class="col-md-3">
+								<%= f.text_field :content, class: "form-control", placeholder: "Nhập bình luận của bạn " %>
+								</div>	
+								<div  class="col-md-3">
+									<%= f.submit "Bình luận", class: "btn btn-success" %>
+								</div>
+							
+							</div>
+						<% end %>
+				</div>
+			
+				<div class="reply-comment" id="View_reply<%= comment.id %>" >
+					<%  @reply_comments = ReplyComment.where("idComment LIKE ?", comment.id ) %>
+					<% if @reply_comments %>
+					
+						<%  @reply_comments.each do |reply_comment| %>
+
+						<% user_reply = User.find_by_id(reply_comment.idUser) %>
+						<div class="head_comment">
+							<% if user_reply.img_user.attached? %> 
+							<%= image_tag user_reply.img_user,style: "width: 45px; height:45px ; display: inline-block; border-radius:45px" %> 
+							<% else %>
+							<%= image_tag "img_avatar.png",style: "width: 45px; height:45px ; display: inline-block; border-radius:45px" %> 
+							<%end%>    
+							<b><%= user_reply.username %></b>
+							<span style="margin-left:100px"><%= reply_comment.created_at.strftime("%d/%m/%Y %r")	 %></span>
+						</div>
+						<div class="content_comment">
+							<div style="margin-left:50px;">
+								<%=  reply_comment.content %>
+								
+							</div>
+
+						</div>
+						<% end %>
+
+					<%end%>
 				</div>
 			</div>
 			<% end%>
@@ -86,6 +128,9 @@
 
 </div>
 
+<script>
+function toggle_comment(view_toggle){
+	$(view_toggle).slideToggle();
+}
+</script>
 
-<%= link_to 'Edit', edit_blog_path(@blog) %> |
-<%= link_to 'Back', blogs_path %>

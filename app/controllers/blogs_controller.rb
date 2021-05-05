@@ -3,24 +3,41 @@ class BlogsController < ApplicationController
 
   # GET /blogs or /blogs.json
   def index
-  
 	limit = 8
 	start = 0
-	@count_blog =  Blog.count()
-	@total_page  = (@count_blog.to_f / limit)
+	if  session[:current_user_id] 
+		if User.find_by_id( session[:current_user_id] ).quyen == 1 
+			@count_blog =  Blog.count()
+			@total_page  = (@count_blog.to_f / limit)
 
-	if (params[:page]) 
-		current_page = params[:page]
-		if (@count_blog.to_f / limit) > (@count_blog / limit)
-			@total_page = (@count_blog / limit) + 1
+			if (params[:page]) 
+				current_page = params[:page]
+				if (@count_blog.to_f / limit) > (@count_blog / limit)
+					@total_page = (@count_blog / limit) + 1
+				else 
+					@total_page = (@count_blog / limit) 
+				end
+				start = (current_page.to_i - 1 ) * limit
+				
+			end
+			@blogs = Blog.order(created_at: :desc).limit(limit).offset(start)
 		else 
-			@total_page = (@count_blog / limit) 
-		end
-		start = (current_page.to_i - 1 ) * limit
-		
-	end
+			@count_blog =  Blog.where('idUser = ?', session[:current_user_id] ).count()
+			@total_page  = (@count_blog.to_f / limit)
 
-	@blogs = Blog.order(created_at: :desc).limit(limit).offset(start)
+			if (params[:page]) 
+				current_page = params[:page]
+				if (@count_blog.to_f / limit) > (@count_blog / limit)
+					@total_page = (@count_blog / limit) + 1
+				else 
+					@total_page = (@count_blog / limit) 
+				end
+				start = (current_page.to_i - 1 ) * limit
+				
+			end
+			@blogs = Blog.where('idUser = ?', session[:current_user_id] ).limit(limit).offset(start)		
+		end
+	end
   end
 
   # GET /blogs/1 or /blogs/1.json
@@ -28,7 +45,7 @@ class BlogsController < ApplicationController
     @idBlog  = blog_path.split('/')[2]
 
     @comments = Comment.where("idBlog LIKE " + @idBlog)
-    
+ 
   end
 
   # GET /blogs/new
@@ -55,7 +72,7 @@ class BlogsController < ApplicationController
 
       respond_to do |format|
         if @blog.save
-          format.html { redirect_to @blog, alert: idCategory }
+          format.html { redirect_to @blog, alert: "Tạo blog thành công" }
           format.json { render :show, status: :created, location: @blog }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -80,7 +97,16 @@ class BlogsController < ApplicationController
       end
     end
   end
+  def update_status 
+    status = 1
+	status_current = Blog.find_by_id(params[:id]).status
 
+
+	if status_current === 1  
+		status = 0 
+	end
+    Blog.find_by_id(params[:id]).update(status: status)
+  end
   # DELETE /blogs/1 or /blogs/1.json
   def destroy
     @blog.destroy

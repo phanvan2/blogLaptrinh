@@ -1,4 +1,50 @@
 
+<div class="container">
+	<div class="ass1-head-user">
+		<div class="ass1-head-user__content">
+			<div class="ass1-head-user__image">
+				<a href="#">
+					<% if user.img_user.attached? %> 
+					<%= image_tag user.img_user,style: "width: 100%;height: 100%;", id:"imgshow" %> 
+					<% else %>
+					<%= image_tag "img_avatar.png",style: "width: 100%;height: 100%;", id:"imgshow" %> 
+					<%end%>   
+				</a>
+			</div>
+			<div class="ass1-head-user__info">
+				<div class="ass1-head-user__info-head">
+					<div class="ass1-head-user__name">
+						<span>  <%= @user.username %></span> 
+						<i><img src="fonts/emotion/svg/Verified.svg" alt=""></i>
+					</div>
+					<div class="w-100 btn_header">
+						<% if @user.quyen == 1 %>
+							Người quản trị
+						<% else %>
+							user
+						<% end %>
+					</div>
+					<a href="#" class="ass1-head-user__btn-follow ass1-btn">Theo dõi</a>
+					<a href="thay-doi-password.html" class="ass1-head-user__btn-follow ass1-btn">Đổi mật khẩu</a>
+					<a href="profile.html" class="ass1-head-user__btn-follow ass1-btn">Profile</a>
+					<!-- <a href="#" class="ass1-head-user__btn-options ass1-btn-icon"><i class="icon-Options"></i></a> -->
+				</div>
+				<div class="ass1-head-user__info-statistic">
+					<div class="ass1-btn-icon"><i class="icon-Post"></i><span>Bài viết: <%= @count_blog %></span></div>
+					<div class="ass1-btn-icon"><i class="icon-Followers"></i><span>Theo dõi: 99999</span></div>
+					<div class="ass1-btn-icon"><i class="icon-Following"></i><span>Đang theo dõi: 999</span></div>
+					<!-- <div class="ass1-btn-icon"><i class="icon-Upvote"></i><span>Up Vote: 999999</span></div> -->
+				</div>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+			
+			</div>
+		</div>
+	</div>
+	<!--sections-->
+
+</div>
+
+
 <%= form_with(model: user) do |form| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
@@ -32,7 +78,50 @@
     	<%= form.label :"Re password", class:"col-md-2 control-label" %>
     	<%= form.text_field :Repass, class: "form-control", placeholder: "Enter your Re password" %>
   	</div>
+	<div class="form-group">
+		
+		<%= form.label :img_user, "ảnh Blog" %>
+		<%= form.file_field :img_user,class: 'form-control' %>
+		
+		<br>
+	</div>
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+
+<script>
+
+  	$('document').ready(function () { 
+    	$("#user_img_user").change(function () {
+        	if (this.files && this.files[0]) {
+            	var reader = new FileReader();
+            	reader.onload = function (e) {
+                	$('#imgshow').attr('src', e.target.result);
+            	}
+            	reader.readAsDataURL(this.files[0]);
+        	}
+    	});
+
+		<%# $("#blog_title").change(function () {  // thay đổi tiêu đề đemo x
+			document.getElementById("title_demo").innerHTML = $("#blog_title").val()
+	
+		});
+		$("#blog_abstract").change(function () {  // thay đổi tiêu đề đemo x
+			document.getElementById("abstract_demo").innerHTML = $("#blog_abstract").val()
+	
+		});
+		$("input[type='checkbox']").change(function () {  // thay đổi tiêu đề đemo x
+		   var checkbox = document.getElementsByName('category_demo');
+		   var result ='';
+			console.log(checkbox.length) ; 
+			 for (var i = 0; i < checkbox.length; i++){
+                    if (checkbox[i].checked === true){
+                        result += '' + checkbox[i].value + ',';
+                    }
+                }
+			console.log(result)
+			console.log($("#blog_idCategory").val(result))
+		}); %>
+	});
+</script>

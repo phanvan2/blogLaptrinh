@@ -3,13 +3,31 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
+
+    
     @users = User.all
   end
 
   # GET /users/1 or /users/1.json
   def show
-    @count_blog = Blog.where("idUser = "+ params[:id].to_s).distinct.count(:id)
-    @blogs_user = Blog.where("idUser = " +params[:id].to_s).order(created_at: :desc)
+	limit = 8
+	start = 0
+	@count_blog = Blog.where("idUser = "+ params[:id].to_s).distinct.count(:id)
+	@total_page  = (@count_blog.to_f / limit)
+
+	if (params[:page]) 
+		current_page = params[:page]
+		if (@count_blog.to_f / limit) > (@count_blog / limit)
+			@total_page = (@count_blog / limit) + 1
+		else 
+			@total_page = (@count_blog / limit) 
+		end
+		start = (current_page.to_i - 1 ) * limit
+		
+	end
+
+   
+    @blogs_user = Blog.where("idUser = " +params[:id].to_s).order(created_at: :desc).limit(limit).offset(start)
   end
 
   # GET /users/new
@@ -43,7 +61,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1 or /users/1.json
   def update
     respond_to do |format|
-      if @user.update(username:user_params[:username] , email:user_params[:email] )
+      if @user.update(username:user_params[:username] , email:user_params[:email] , img_user:user_params[:img_user] )
         format.html { redirect_to @user, notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -76,6 +94,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:username, :email, :password_digest, :quyen)
+      params.require(:user).permit(:username, :email, :password_digest, :quyen, :img_user)
     end
 end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reply_comments
   resources :comments
   get 'search_blog/index'
   resources :categories
@@ -19,7 +20,8 @@ Rails.application.routes.draw do
   get '/login' => 'session#index'
   get '/search' => 'search_blog#index'
   post '/comments1/create' => 'comments#create'
-
+  post '/reply_comments/create' => 'reply_comments#create'
+  post '/update_status' => 'blogs#update_status'
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

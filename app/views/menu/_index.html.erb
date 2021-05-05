@@ -50,11 +50,19 @@
 								
 							</li>
 							<li>
-								<i 
+								<i role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+									<% if user.img_user.attached? %> 
+									<%= image_tag user.img_user,style: "width: 26px;height: 26px;margin-top:0px; border-radius:50px;", id:"imgshow" %> 
+									<% else %>
+									<%= image_tag "img_avatar.png",style: "width: 26px;height: 26px;margin-top:0px; border-radius:50px;", id:"imgshow" %> 
+									<%end%>   
+									<span class="dropdown-toggle"  style="font-size:20px; padding:5px; "></span>
+								</i>
+								<%# <i 
 									class='fas fa-user-circle ' 
 									id="navbarDropUser" 
 									style='font-size:26px; margin-top:10px; color:#3a4dd4;' 
-									role="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="dropdown-toggle" style="font-size:20px; padding:5px ; "></span></i>
+									role="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="dropdown-toggle" style="font-size:20px; padding:5px ; "></span></i> %>
 									
 								<ul class="dropdown-menu dropdown-menu-end">
 									<li>
@@ -72,6 +80,7 @@
 											<%= link_to 'Đăng bài', '/blogs/new',  class:"" %> 
 										</button>
 									</li>
+								<%if User.find_by_id( session[:current_user_id] ).quyen == 1 %>
 									<li>
 										<button class="dropdown-item" type="button">
 											<%= link_to 'Quản lý danh mục', '/categories',  class:"" %> 
@@ -82,9 +91,10 @@
 											<%= link_to 'Quản lý User', '/users',  class:"" %> 
 										</button>
 									</li>
+								<% end %>
 									<li>
 										<button class="dropdown-item" type="button">
-											<%= link_to 'Quản lý bài viét', '/blogs',  class:"" %> 
+											<%= link_to 'Quản lý bài viết', '/blogs',  class:"" %> 
 										</button>
 									</li>
 									<li>

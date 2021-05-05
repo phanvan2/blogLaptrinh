@@ -2,7 +2,13 @@
 			 <div class="row card_item">
 					<div class="col-lg-5">
 						<div class="main_img">
-							<%= image_tag "loi-hien-thi.png",style: "width:100% ;  height:220px", id:"imgshow" %> 
+						  	<% if blog.img.attached? %> 
+							<%= image_tag blog.img,style: "width:100% ;height: 220px;display: block;", id:"imgshow" %> 
+							<%else %>
+							<%= image_tag "loi-hien-thi.png",style: "width:100% ;height: 220px;display: block;", id:"imgshow" %> 
+
+							<%end%>   
+							<%# image_tag "loi-hien-thi.png",style: "width:100% ;  height:220px", id:"imgshow" %> 
 						</div>
 					</div>
 					<div class="col-lg-7">
@@ -38,12 +44,12 @@
       </ul>
     </div>
   <% end %>
-		<% if blog.idCategory %> 
-			<% if blog.idCategory.length > 2 %> <%# xử lý idCategory trong blog %>
-				<% count_idcategory =  blog.idCategory.length - 2 %>
-			<% else %>
-				<%count_idcategory =  blog.idCategory.length - 1 %>
-			<% end%>
+	<% if blog.idCategory %>
+		<% if blog.idCategory.length > 2 %> <%# xử lý idCategory trong blog %>
+			<% count_idcategory =  blog.idCategory.length - 2 %>
+		<% else %>
+			<%count_idcategory =  blog.idCategory.length - 1 %>
+		<% end%>
   <div class="field">
      <%= form.label :idCategory %>
 	 <div class="row">
@@ -62,8 +68,6 @@
 		</div>
 		<%end%>
 	 </div>
- 
-
 
   </div>
 		<% else %>
@@ -81,28 +85,26 @@
 	 </div>
   </div>
 	<% end %>
-    <%= form.text_field :idCategory,class:"form-control" %>
+    <%= form.text_field :idCategory,class:"form-control", style:"display:none" %>
  
   <div class="form-group">
-    <%= form.label :title  %>
+    <%= form.label :title, value:"tiêu đề "  %>
     <%= form.text_field :title, class:"form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :abstract %>
+    <%= form.label :abstract, value:"Mô tả" %>
     <%= form.text_field :abstract,class:"form-control" %>
   </div>
 
   <div class="form-group" >
-    <%= form.label :content%>
+    <%= form.label :content, value: "Nội dung"%>
     <%= form.text_field :content, class:"form-control" , style:"display: none;" %>
   </div>
 	<input type="text" id="content">
 
   <div class="form-group">
-    <% if blog.img.attached? %> 
-    <%= image_tag blog.img,style: "width: 350px;height: 220px;display: block;margin-left:100px", id:"imgshow" %> 
-    <%end%>   
+  
     <%= form.label :img, "ảnh Blog" %>
     <%= form.file_field :img,class: 'form-control' %>
     
@@ -113,9 +115,6 @@
   </div>
  
 <% end %>
-
-
- <button onclick="getContent()" > get</button>
 </div>
 
 
@@ -127,10 +126,15 @@
 			$('#blog_content').val(evt.editor.getData())  
 			console.log( evt.editor.getData()) ; 
 		});
-
+		
+	
 
 	// đọc file img 
   	$('document').ready(function () { 
+		CKEDITOR.instances["content"].setData($("#blog_content").val())
+
+
+
     	$("#blog_img").change(function () {
         	if (this.files && this.files[0]) {
             	var reader = new FileReader();

@@ -5,7 +5,11 @@
 		<div class="ass1-head-user__content">
 			<div class="ass1-head-user__image">
 				<a href="#">
-					<%= image_tag("IMG_E0749.JPG")  %>
+					<% if @user.img_user.attached? %> 
+					<%= image_tag @user.img_user,style: "width: 100%;height: 100%;", id:"imgshow" %> 
+					<% else %>
+					<%= image_tag "img_avatar.png",style: "width: 100%;height: 100%;", id:"imgshow" %> 
+					<%end%>   
 				</a>
 			</div>
 			<div class="ass1-head-user__info">
@@ -23,7 +27,6 @@
 					</div>
 					<a href="#" class="ass1-head-user__btn-follow ass1-btn">Theo dõi</a>
 					<a href="thay-doi-password.html" class="ass1-head-user__btn-follow ass1-btn">Đổi mật khẩu</a>
-					<a href="profile.html" class="ass1-head-user__btn-follow ass1-btn">Profile</a>
 					<!-- <a href="#" class="ass1-head-user__btn-options ass1-btn-icon"><i class="icon-Options"></i></a> -->
 				</div>
 				<div class="ass1-head-user__info-statistic">
@@ -40,65 +43,83 @@
 	<!--sections-->
 
 </div>
-		<div class="container" style="width:81%">
-			<h3 class="title_main">Danh danh bài viết: </h3>
-			<div class="row ">
-			<% if @blogs_user %>
-			<% @blogs_user.each do |blog|%>
-				<div class="col-lg-4" style="">
-					<div class="card_blog">
-						<div class="col-sm-12 cardBlog_img">
-							<% if blog.img.attached? %> 
-								<%= image_tag blog.img,style: "width: 100%; height:220px ; display: block" %> 
-							<% else %>
-								<%= image_tag "loi-hien-thi.png",style: "width:100% ;  height:220px" %> 
-							<%end%>  
-							<%# <img src="https://codelearn.io/Upload/Blog/can-bang-phuong-trinh-hoa-hoc-bang-cpp-63752466266.5863.jpg" > %>
-						</div>
-						<div class="col-sm-12 cardBolg_body">
-							<p class="cardblog_title"> <%= link_to blog.title, "/blogs/" + blog.id.to_s%> </p>
-							<% if blog.abstract.length <= 85%>
-								<span class="cardBlog_detail">  <%= blog.abstract %></span>
-							<% else %>
-								<span class="cardBlog_detail">  
-									<%= blog.abstract[0..85] %>...
-								</span>
-							<%end %>
-							<div class="row">
-								<div class="col-sm-12 card_danhmuc">
-									<span class="card_titleDanhmuc">Thuật toán </span>
-									<span class="card_titleDanhmuc"> Java </span>
-									<span class="card_titleDanhmuc"> C </span>
-								</div>
-							</div>
-						</div>
-						<div class=" col-sm-12 cardBlog_footer">
-							<hr/>
-							<span class="author"> <%= User.find_by_id(blog.idUser).username %> </span>
-							<span class="create_at"> <%= blog.created_at.strftime("%d/%m/%Y") %> </span>
-							<span class="sharing"><i class='fas fa-share-alt' style='font-size:24px'></i></span>
+<div class="container" style="width:81%">
+	<h3 class="title_main">Danh danh bài viết: </h3>
+	<div class="row ">
+	<% if @blogs_user %>
+	<% @blogs_user.each do |blog|%>
+		<div class="col-lg-4" style="">
+			<div class="card_blog">
+				<div class="col-sm-12 cardBlog_img">
+					<% if blog.img.attached? %> 
+						<%= image_tag blog.img,style: "width: 100%; height:220px ; display: block" %> 
+					<% else %>
+						<%= image_tag "loi-hien-thi.png",style: "width:100% ;  height:220px" %> 
+					<%end%>  
+					<%# <img src="https://codelearn.io/Upload/Blog/can-bang-phuong-trinh-hoa-hoc-bang-cpp-63752466266.5863.jpg" > %>
+				</div>
+				<div class="col-sm-12 cardBolg_body">
+					<p class="cardblog_title"> <%= link_to blog.title, "/blogs/" + blog.id.to_s%> </p>
+					<% if blog.abstract.length <= 85%>
+						<span class="cardBlog_detail">  <%= blog.abstract %></span>
+					<% else %>
+						<span class="cardBlog_detail">  
+							<%= blog.abstract[0..85] %>...
+						</span>
+					<%end %>
+					<div class="row">
+						<div class="col-sm-12 card_danhmuc">
 
+						<% if blog.idCategory.length > 2 %> <%# xử lý idCategory trong blog %>
+							<% count_idcategory =  blog.idCategory.length - 2 %>
+							<% blog.idCategory[0..count_idcategory]%>
+						<% else %>
+							<%count_idcategory =  blog.idCategory.length - 1 %>
+							<% blog.idCategory[0..count_idcategory]%>
+						<% end%>
+					<%# lấy ra danh  muc theo query select + categoru where id IN (1,2,3) %>
+						<%  categories =  Category.where(id: blog.idCategory[0..count_idcategory].split(",") ) %> 
+						<% categories.each do |cate| %>
+							<span class="card_titleDanhmuc"><%= cate.name%> </span>
+						<% end%>
 						</div>
 					</div>
-					
 				</div>
-			<% end %>	
-			<% else %>
-				<span> Bạn chưa đăng bất cứ bài viết nào </span>
-			<% end %>
-			</div>
-			<div class="row">
-				<div class="col-sm-12" align="center">
-					<ul class="pagination">
-						<li class="page-item"><a class="page-link" href="#">Trước</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">4</a></li>
-						<li class="page-item"><a class="page-link" href="#">5</a></li>
-						<li class="page-item"><a class="page-link" href="#">Sau</a></li>
-					</ul>
-				</div>
-			</div>
+				<div class=" col-sm-12 cardBlog_footer">
+					<hr/>
+					<span class="author"> <%= User.find_by_id(blog.idUser).username %> </span>
+					<span class="create_at"> <%= blog.created_at.strftime("%d/%m/%Y") %> </span>
+					<span style="color:red">	
+						<% if blog.status == 1%>
+							<%= "Đã duyệt"%>
+						<%else %>
+							<%= "Chưa duyệt"%>
+						<%end %>
+					</span>
+					<span class="sharing"><i class='fas fa-share-alt' style='font-size:24px'></i></span>
 
+				</div>
+			</div>
+			
 		</div>
+	<% end %>	
+	<% else %>
+		<span> Bạn chưa đăng bất cứ bài viết nào </span>
+	<% end %>
+	</div>
+<div class="container" align="center" style="padding:3px 40%">
+	<nav aria-label="Page navigation example"  align="center">
+		<ul class="pagination">
+			<li class="page-i
+			tem"><%= link_to "first", "/blogs?page=1" , class:"page-link"  %> </li>
+			<% for i in 1..@total_page %>
+			<%# <li class="page-item"><a class="page-link" href="#"><%= i  </a></li> %>
+			<li class="page-item"><%= link_to i, "/blogs?page="+i.to_s , class:"page-link"  %> </li>
+			<% end%>
+			<li class="page-item"><%= link_to "last", "/blogs?page="+ @total_page.to_s , class:"page-link"  %> </li>
+
+		</ul>
+	</nav>
+</div>
+
+</div>
