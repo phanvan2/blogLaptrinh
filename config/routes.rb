@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :comments
   get 'search_blog/index'
   resources :categories
   resources :blogs
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
   get 'user/:id/update', to: 'users#edit'
   get '/login' => 'session#index'
   get '/search' => 'search_blog#index'
+  post '/comments1/create' => 'comments#create'
 
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

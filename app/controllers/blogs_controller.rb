@@ -25,6 +25,10 @@ class BlogsController < ApplicationController
 
   # GET /blogs/1 or /blogs/1.json
   def show
+    @idBlog  = blog_path.split('/')[2]
+
+    @comments = Comment.where("idBlog LIKE " + @idBlog)
+    
   end
 
   # GET /blogs/new

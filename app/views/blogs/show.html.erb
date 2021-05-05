@@ -1,3 +1,4 @@
+
 <div class="container">
 	<div class="row">
 		<div class="col-sm-8">
@@ -36,7 +37,54 @@
 
 </div>
 
+<div class="container">
+	<div class="row">
+		<div class="col-lg-offset-2">
+			<%= form_with url:'/comments1/create?idBlog=' + @blog.id.to_s, method: :post, html: {class: "form-horizontal"} do |f| %> <%= token_tag%>
+			<div class="form-group">
+				<%= f.label :content, "Name", class: "col-md-2 control-label" %>
+				<div class="col-md-6">
+				<%= f.text_field :content, class: "form-control", placeholder: "Nhập bình luận của bạn " %>
+				</div>
+			</div>
 
+			
+			<div class="form-group">
+				<div class="col-lg-offset-4">
+				<%= f.submit "Login", class: "btn btn-success" %>
+				</div>
+			</div>
+			<% end %>
+			<%= notice%>
+
+		
+		</div>
+	</div>
+	<div class="row">
+		<% if @comments %>
+			<%  @comments.each do |comment| %>
+			<div class="comment">
+				
+				<div class="head_comment">
+					<% if User.find_by_id(session[:current_user_id] ).img.attached? %> 
+						<%= image_tag @blog.img,style: "width: 45px; height:45px ; display: inline-block; border-radius:45px" %> 
+					<% else %>
+						<%= image_tag "img_avatar.png",style: "width: 50px; height:50px ; display: inline-block; border-radius:50px" %> 
+					<%end%>  
+					<b><%= User.find_by_id(comment.idUser).username %></b>
+					<span style="margin-left:100px"><%= comment.created_at.strftime("%d/%m/%Y %r")	 %></span>
+				</div>
+				<div class="content_comment">
+					<div style="margin-left:50px;"><%=  comment.content %></div>
+				</div>
+			</div>
+			<% end%>
+		<% else %>
+			<h4> Hiện chưa có bất kỳ bình luận nào </h4>
+		<% end%>
+	</div>
+
+</div>
 
 
 <%= link_to 'Edit', edit_blog_path(@blog) %> |

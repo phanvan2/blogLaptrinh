@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_30_144512) do
+ActiveRecord::Schema.define(version: 2021_05_04_133224) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2021_04_30_144512) do
     t.integer "idCategory"
     t.string "title"
     t.string "abstract"
-    t.string "content", limit: 1000
+    t.string "content"
     t.string "img"
     t.integer "status"
     t.datetime "created_at", precision: 6, null: false
@@ -58,11 +58,19 @@ ActiveRecord::Schema.define(version: 2021_04_30_144512) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "comments", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "idUser"
+    t.integer "idBlog"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "username"
     t.string "email"
     t.string "password_digest"
-    t.integer "quyen", default: 0
+    t.integer "quyen"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

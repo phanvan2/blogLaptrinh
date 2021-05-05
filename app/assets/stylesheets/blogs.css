@@ -1,6 +1,4 @@
-// Place all the styles related to the Blogs controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+
 .post{
     border: #dcdcdc solid ;
     padding:10px; 
@@ -14,4 +12,10 @@
     border:#dcdcdc solid;
     width: 100%;
     height: 500px;
+}
+.comment{
+    padding: 20px;
+}
+.comment .head_comment{
+    height: 50px;
 }
