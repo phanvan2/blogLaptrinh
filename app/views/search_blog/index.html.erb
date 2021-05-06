@@ -48,7 +48,11 @@
 								<span class="cardBlog_detail">  <%= blog.abstract %></span>
 							<% else %>
 								<span class="cardBlog_detail">  
-									<%= blog.abstract[0..85] %>...
+								   <% if params[:search]  %>
+										<%= raw blog.abstract[0..85].gsub(params[:search] , "<mark>"+ params[:search]+ "</mark>") %>...
+									<% else %>
+										<%= raw blog.abstract[0..85] %>...
+									<% end%>
 								</span>
 							<%end %>
 							<div class="row">
