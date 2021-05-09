@@ -5,16 +5,18 @@
 }
 </style>
 
-		<div class="container" style="width:81%">
-			<h3 class="title_main">
+		<div class="container" style="width:81%;margin-top:40px">
+			<h3>
 				<% url =  "" %>
                 <% if params[:idCategory] %>
 					<% url = "idCategory="+params[:idCategory] %>
-                	<%= "Danh muc: " + Category.find_by(id: + params[:idCategory]).name%>  
+                	<span class="title_main">
+                		<%= "Danh mục: " + Category.find_by(id: + params[:idCategory]).name%>
+                	</span>  
                 <% end %>
 
             </h3>
-            <h3> Kết quả tìm kiếm 
+            <h3 style="margin-top:30px"> Kết quả tìm kiếm 
                  <% if params[:search]  %>
 				 	<% url = "search="+params[:search] %>
                   ( <mark> <%= params[:search] %></mark>)

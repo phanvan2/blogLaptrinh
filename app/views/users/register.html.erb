@@ -1,0 +1,42 @@
+	<style type="text/css">
+	.update-infor-user{
+		margin-top: 20px;
+		margin-left: 30%;
+	}
+	.col-sm-6{
+		margin-top:10px;
+	}
+	</style>
+	  	<div class="update-infor-user form-group">
+		  	<div class="col-sm-6 form-group">
+		     	<%= form.label :Username , class: "col-md-2 control-label"  %>
+		    	<%= form.text_field :username , class: "form-control", placeholder: "Enter user name" %>
+		  	</div>
+			
+		  	<div class="col-sm-6 form-group">
+				<%= form.label :Email, class:"col-md-2 control-label" %>
+				<%= form.text_field :email, class: "form-control", placeholder: "Enter your email" %>
+			</div>
+
+		  	<div class="col-sm-6 form-group">
+				<%= form.label :Password, class:"col-md-2 control-label" %>
+				<%= form.text_field :password_digest, class: "form-control", placeholder: "Enter your password" %>
+		  	</div>
+
+		    <div class="col-sm-6 form-group">
+		    	<%= form.label :"Repassword", class:"col-md-2 control-label" %>
+		    	<%= form.text_field :Repass, class: "form-control", placeholder: "Enter your Re password" %>
+		  	</div>
+
+			<div class="col-sm-6 form-group">
+				
+				<%= form.label :img_user, "Image blog" %>
+				<%= form.file_field :img_user,class: 'form-control' %>
+				
+				<br>
+			</div>
+
+		  <div class="actions">
+		    <%= form.submit "Cập nhật thông tin",class:"btn btn-primary" %>
+		  </div>
+	</div>	

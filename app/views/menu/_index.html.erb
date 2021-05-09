@@ -1,18 +1,20 @@
 
     <div class="container_fluid">
 		<div class=" card text-center">
-			<div class=" col-sm-12 card-header">
-				<ul class="nav justify-content-start" style="position:absolute">
+			<div class=" col-sm-12 card-header" style="height:120px;background: white">
+				<div class="text-justify">
+					<ul class="nav justify-content-start" style="position:absolute">
 					<li class="nav-item title_menu">
 						
-						<%= link_to 'Blog Lập trình ', "/",  class:"title_blog" %>
+						<%= image_tag "logomain.png", height:"100px" %> 
 
 					</li>
 					
-					
-					<li style="margin-left:50px">
+					<li style="margin-left:50px;margin-top:30px">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Danh mục
+							<span style="font-size: 20px;font-weight: bold;color: #003366">
+								Danh mục
+							</span>
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<div class="box_danhmuc" >
@@ -26,20 +28,20 @@
 							</div>
 						</ul>
 					</li>
-					<li>
-						<a class="nav-link active" href="#">Nổi bật</a>
+					<li style="margin-top: 30px">
+						<a class="nav-link active" href="#">
+							<span style="font-size:20px;color: #003366;font-weight:bold">Giới thiệu</span>
+						</a>
 					</li>
 					
 				</ul>
 				<%= form_with url:'/search', method: :get, html:{class:"form_search"} do |f| %>
 					<%# <input type="search" class="form-control form-control-dark" placeholder="Nhập từ khóa tìm kiếm"> %>
-					<%= f.text_field :search, class: "form-control form-control-dark", placeholder: "Nhập từ khóa tìm kiếm" %>
+					<%= f.text_field :search, class: "form-control form-control-dark form-tim-kiem", placeholder: "Nhập từ khóa tìm kiếm" %>
 
 			  	<% end %>
-				<%# <form class="form_search" >
-					<input type="search" class="form-control form-control-dark" placeholder="Nhập từ khóa tìm kiếm">
-				</form> %>
-				<ul class="nav justify-content-end ">
+
+				<ul class="nav justify-content-end form-account">
 				
 						<% if session[:current_user_id] %>
 							<%  user = User.find_by_id(session[:current_user_id]) %>
@@ -105,15 +107,65 @@
 								</ul>
 							</li>
 						<% else %>
-							<li>
-								<%= link_to 'Đăng Nhập', "/login",  class:"nav-link btn-primary btn_login" %> 
-							</li>
-							<li>
-								<%= link_to 'Đăng ký', "/register",  class:"nav-link btn-primary btn_register" %>
-							</li>
+							<div class="btn-group">
+								<a class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+									<i class="fas fa-user"></i>
+									Tài khoản
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<li>
+										<%= link_to 'Đăng Nhập', "/login",  class:"dropdown-item  btn_login" %> 
+									</li>
+									<li>
+										<%= link_to 'Đăng ký', "/register",  class:"dropdown-item btn_register" %>
+									</li>
+								</ul>
+							</div>
 						<% end %>
 				</ul>
+				</div>
+				
 			</div>
+		</div>
+		<div class="container_fluid">
+			<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-indicators">
+					<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+					<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+					<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+				</div>
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<%= image_tag "https://nordiccoder.com/app/uploads/2021/01/128-why_become_cbap.jpg", class:"d-block w-100", height:"500px" %> 
+						<div class="carousel-caption d-none d-md-block">
+							<h5>Cộng đồng lập trình</h5>
+							<p>Nơi mở rộng kiến thức và phát triển tư duy lập trình của bạn.</p>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<%= image_tag "https://nordiccoder.com/app/uploads/2021/01/127-business-analysis.png", class:"d-block w-100", height:"500px" %> 
+						<div class="carousel-caption d-none d-md-block">
+							<h5>Những kiến thức bổ ích</h5>
+							<p>Mang đến cho bạn những kiến thức lập trình có giá trị.</p>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<%= image_tag "https://nordiccoder.com/app/uploads/2020/12/125-lo-trinh-business-analysis.jpg", class:"d-block w-100", height:"500px" %> 
+						<div class="carousel-caption d-none d-md-block">
+							<h5>Kinh nghiệm làm việc</h5>
+							<p>Chúng tôi sẽ chia sẻ nhiều kinh nghiệm làm việc quý báu.</p>
+						</div>
+					</div>
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>	
 		</div>
 
 

@@ -42,11 +42,11 @@ ActiveRecord::Schema.define(version: 2021_05_05_032755) do
 
   create_table "blogs", charset: "utf8mb4", force: :cascade do |t|
     t.integer "idUser"
-    t.string "idCategory", limit: 11
+    t.string "idCategory"
     t.string "title"
     t.string "abstract"
-    t.text "content"
-    t.text "img"
+    t.string "content"
+    t.string "img"
     t.integer "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

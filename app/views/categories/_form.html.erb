@@ -11,12 +11,12 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="field" style="margin-left:20%">
+    <%= form.label :'Tên danh mục',style: 'font-weight:bold;margin-bottom:10px'%><br>
+    <%= form.text_field :name, class: 'form-control',style: 'width:400px'%>
   </div>
 
-  <div class="actions">
+  <div class="actions" style="margin-left:20%;margin-top:20px">
     <%= form.submit %>
   </div>
 <% end %>

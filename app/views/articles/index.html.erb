@@ -14,8 +14,12 @@
   <body>
 	
 		<div class="container" align="center">
+			<h3 style="margin-top: 50px;margin-bottom:40px">
+				<span class="title_main">
+					BÀI VIẾT NỔI BẬT
+				</span>
+			</h3>
 			<% @blogs_demo.each do |blog|%>
-
 			<div class="row card_item">
 					<div class="col-lg-5">
 						<div class="main_img">
@@ -90,8 +94,12 @@
 		</div>
 
 	<%# phần mới nhất   %>
-		<div class="container" style="width:81%">
-			<h3 class="title_main">MỚi CẬP NHẬT:  </h3>
+		<div class="container" style="width:81%;margin-top: 40px">
+			<h3>
+				<span class="title_main">
+					MỚI CẬP NHẬT
+				</span>
+			</h3>
 			<div class="row ">
 					<% @blogs_update.each do |blog|%>
 				<div class="col-lg-4" style="">
@@ -150,8 +158,12 @@
 		</div>
 <%# =------------------ %>
 	<%# phần Phổ biến nhất   %>
-		<div class="container" style="width:81%">
-			<h3 class="title_main">PHỔ BIẾN:  </h3>
+		<div class="container" style="width:81%;margin-top: 40px">
+			<h3>
+				<span class="title_main">
+					PHỔ BIẾN
+				</span>
+			</h3>
 			<div class="row ">
 					<% @blogs_popular.each do |blog|%>
 				<div class="col-lg-4" style="">

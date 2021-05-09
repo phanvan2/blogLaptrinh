@@ -3,8 +3,15 @@
 
 
 <p> <%= params.permit("page")%>
-<h2>Danh mục</h2>
-<br>
+    <h2 style="margin-top: 30px;margin-bottom:30px;text-align: center">
+        <span class="title_main">
+            DANH MỤC
+        </span>
+    </h2>
+    <button class="btn btn-outline-primary" style="margin-right:120px;float:right;margin-bottom:10px">
+        <%= link_to 'Thêm danh mục', new_category_path %>
+    </button>
+
 <div class="table-wrapper">
     <table class="fl-table">
         <thead>
@@ -12,8 +19,7 @@
             <th>STT</th>
             <th>Tên Danh mục</th>
             <th>Xem blog</th>
-            <th></th>
-            <th></th>
+            <th colspan="2"></th>
         </tr>
         </thead>
         <tbody>
@@ -23,9 +29,18 @@
         <tr>
             <td><%= stt %></td>
             <td><%= category.name %></td>
-            <td><button><%= link_to 'Xem blogs', "/search?idCategory="+category.id.to_s %>  </button></td>
-       		<td><button><%= link_to 'Sửa', edit_category_path(category) %> </button></td>
-        	<td><button><%= link_to 'Xóa', category, method: :delete, data: { confirm: 'Bạn có muốn xóa danh mục '+category.name+ ' này ko?' } %></button></td>
+            <td>
+                <button class="btn btn-outline-primary"><%= link_to 'Xem blogs', "/search?idCategory="+category.id.to_s %>  
+                </button>
+            </td>
+       		<td>
+                <button class="btn btn-warning"><%= link_to 'Sửa', edit_category_path(category) %> 
+                </button>
+            </td>
+        	<td>
+                <button class="btn btn-danger"><%= link_to 'Xóa', category, method: :delete, data: { confirm: 'Bạn có muốn xóa danh mục '+category.name+ ' này ko?' } %>
+                </button>
+            </td>
         </tr>
 		<% stt = stt+ 1%>
         <% end %>
@@ -33,7 +48,7 @@
         <tbody>
     </table>
 </div>
-<nav aria-label="Page navigation example">
+<nav aria-label="Page navigation example" style="margin-left:40%">
   <ul class="pagination">
     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
     <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -42,4 +57,3 @@
     <li class="page-item"><a class="page-link" href="#">Next</a></li>
   </ul>
 </nav>
-<button><%= link_to 'Thêm danh mục', new_category_path %></button>
