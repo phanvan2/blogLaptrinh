@@ -24,10 +24,13 @@ Rails.application.routes.draw do
   post '/reply_comments/create' => 'reply_comments#create'
   post '/update_status' => 'blogs#update_status'
   # resources :admin
-  get "/admin", to: "admin#index"
+  get "/admin", to: "admin#index" 
   get "/admin/user", to: "users#index"
   get "/admin/blog", to: "blogs#index"
   get "admin/categories", to: "categories#index"
+
+
+  get "contact", to: "gioithieu#index"
 
 
 

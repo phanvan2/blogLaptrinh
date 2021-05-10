@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_05_032755) do
+ActiveRecord::Schema.define(version: 2021_05_09_151227) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -42,11 +42,11 @@ ActiveRecord::Schema.define(version: 2021_05_05_032755) do
 
   create_table "blogs", charset: "utf8mb4", force: :cascade do |t|
     t.integer "idUser"
-    t.string "idCategory"
+    t.string "idCategory", limit: 11
     t.string "title"
     t.string "abstract"
-    t.string "content"
-    t.string "img"
+    t.text "content"
+    t.text "img"
     t.integer "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -66,6 +66,15 @@ ActiveRecord::Schema.define(version: 2021_05_05_032755) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "contacts", charset: "utf8mb4", force: :cascade do |t|
+    t.string "fullname"
+    t.string "email"
+    t.string "phone"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "reply_comments", charset: "utf8mb4", force: :cascade do |t|
     t.integer "idUser"
     t.integer "idComment"
@@ -78,7 +87,7 @@ ActiveRecord::Schema.define(version: 2021_05_05_032755) do
     t.string "username"
     t.string "email"
     t.string "password_digest"
-    t.integer "quyen"
+    t.integer "quyen", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "img_user"
