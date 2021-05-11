@@ -1,0 +1,65 @@
+
+
+
+    <h2 style="margin-top: 30px;margin-bottom:30px;text-align: center">
+        <span class="title_main">
+            DANH MỤC
+        </span>
+    </h2>
+    <button class="btn btn-outline-primary" style="margin-right:120px;float:right;margin-bottom:10px">
+        <%= link_to 'Thêm danh mục', '/admin/new/categories' %>
+    </button>
+
+<div class="table-wrapper">
+    <table class="fl-table">
+        <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên Danh mục</th>
+            <th>Xem chi tiết</th>
+            <th ></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+			<% stt = 1 %>
+            <% @categories.each do |category| %>
+   
+        <tr>
+            <td><%= stt %></td>
+            <td><%= category.name %></td>
+            <td>
+                <button class="btn btn-outline-primary"><%= link_to 'Xem Chi tiết', "/search?idCategory="+category.id.to_s %>  
+                </button>
+            </td>
+       		<td>
+                <button class="btn btn-warning"><%= link_to 'Sửa', edit_category_path(category) %> 
+                </button>
+            </td>
+        	<td>
+                <button class="btn btn-danger"><%= link_to 'Xóa', category, method: :delete, data: { confirm: 'Bạn có muốn xóa danh mục '+category.name+ ' này ko?' } %>
+                </button>
+            </td>
+        </tr>
+		<% stt = stt+ 1%>
+        <% end %>
+
+        <tbody>
+    </table>
+</div>
+<div class="container" align="center" style="padding:3px 40%">
+	<nav aria-label="Page navigation example"  align="center">
+		<% if @total_page > 1 %>
+		<ul class="pagination">
+			<li class="page-i
+			tem"><%= link_to "first", request.env['PATH_INFO'].to_s + "?page=1" , class:"page-link"  %> </li>
+			<% for i in 1..@total_page %>
+			<%# <li class="page-item"><a class="page-link" href="#"><%= i  </a></li> %>
+			<li class="page-item"><%= link_to i, request.env['PATH_INFO'].to_s+"?page="+i.to_s , class:"page-link"  %> </li>
+			<% end%>
+			<li class="page-item"><%= link_to "last", request.env['PATH_INFO'].to_s+"?page="+ @total_page.to_s , class:"page-link"  %> </li>
+
+		</ul>
+		<% end %>
+	</nav>
+</div>

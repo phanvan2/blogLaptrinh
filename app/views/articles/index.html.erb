@@ -118,7 +118,7 @@
 								<span class="cardBlog_detail">  <%= blog.abstract %></span>
 							<% else %>
 								<span class="cardBlog_detail">  
-									<%= blog.abstract[0..85] %>...
+									<%= blog.abstract[0..70] %>...
 								</span>
 							<%end %>
 							<div class="row">
@@ -140,7 +140,7 @@
 							</div>
 						</div>
 						<div class=" col-sm-12 cardBlog_footer">
-							<hr/>
+							<hr style="border-color: black; height: 0px" />
 							<span class="author"> <%= User.find_by_id(blog.idUser).username %> </span>
 							<span class="create_at"> <%= blog.created_at.strftime("%d/%m/%Y") %> </span>
 							<span class="sharing"><i class='fas fa-share-alt' style='font-size:24px'></i></span>
@@ -178,11 +178,11 @@
 						</div>
 						<div class="col-sm-12 cardBolg_body">
 							<p class="cardblog_title"> <%= link_to blog.title, "/blogs/" + blog.id.to_s%> </p>
-							<% if blog.abstract.length <= 85%>
+							<% if blog.abstract.length <= 70%>
 								<span class="cardBlog_detail">  <%= blog.abstract %></span>
 							<% else %>
 								<span class="cardBlog_detail">  
-									<%= blog.abstract[0..85] %>...
+									<%= blog.abstract[0..70] %>...
 								</span>
 							<%end %>
 							<div class="row">
@@ -204,7 +204,7 @@
 							</div>
 						</div>
 						<div class=" col-sm-12 cardBlog_footer">
-							<hr/>
+							<hr style="border-color: black; height: 0px" />
 							<span class="author"> <%= User.find_by_id(blog.idUser).username %> </span>
 							<span class="create_at"> <%= blog.created_at.strftime("%d/%m/%Y") %> </span>
 							<span class="sharing"><i class='fas fa-share-alt' style='font-size:24px'></i></span>

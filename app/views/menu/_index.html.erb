@@ -5,9 +5,9 @@
 				<div class="text-justify">
 					<ul class="nav justify-content-start" style="position:absolute">
 					<li class="nav-item title_menu">
-						
-						<%= image_tag "logomain.png", height:"100px" %> 
-
+						<a href="/">
+							<%= image_tag "logomain.png", height:"100px" %> 
+						</a>
 					</li>
 					
 					<li style="margin-left:50px;margin-top:30px">
@@ -29,7 +29,7 @@
 						</ul>
 					</li>
 					<li style="margin-top: 30px">
-						<a class="nav-link active" href="#">
+						<a class="nav-link active" href="/contact">
 							<span style="font-size:20px;color: #003366;font-weight:bold">Giới thiệu</span>
 						</a>
 					</li>
@@ -85,14 +85,10 @@
 								<%if User.find_by_id( session[:current_user_id] ).quyen == 1 %>
 									<li>
 										<button class="dropdown-item" type="button">
-											<%= link_to 'Quản lý danh mục', '/categories',  class:"" %> 
+											<%= link_to 'Trang Quản trị', '/admin/thongke',  class:"" %> 
 										</button>
 									</li>
-									<li>
-										<button class="dropdown-item" type="button">
-											<%= link_to 'Quản lý User', '/users',  class:"" %> 
-										</button>
-									</li>
+									
 								<% end %>
 									<li>
 										<button class="dropdown-item" type="button">
@@ -101,7 +97,7 @@
 									</li>
 									<li>
 										<button class="dropdown-item" type="button">
-											<%= link_to 'Đăng Xuất', "/logout" %> 
+											<%= link_to 'Đăng Xuất', "/logout", data: { confirm: 'Bạn có thực sự muốn đăng xuất ?' } %> 
 										</button>
 									</li>
 								</ul>
@@ -127,6 +123,8 @@
 				
 			</div>
 		</div>
+	</div>
+	<% if request.env['PATH_INFO'] === "/"%>
 		<div class="container_fluid">
 			<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-indicators">
@@ -167,5 +165,6 @@
 				</button>
 			</div>	
 		</div>
+	<%end %>
 
 

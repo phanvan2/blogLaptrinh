@@ -23,8 +23,6 @@
 				<th>Ngày đăng </th>
 				<th>Trang thái </th>
 				<th></th>
-				<th></th>
-				<th></th>
 			</tr>
 		</thead>
 
@@ -44,17 +42,12 @@
         
           <label class="rocker rocker-small">
             <input type="checkbox" data-remote="true"  data-url="/update_status" data-params="id=<%= blog.id %> " data-method="post" <%= check %>   >
-            <span class="switch-left">Yes</span>
+            <span class="switch-left">yes</span>
             <span class="switch-right">No</span>
           </label>
         
 				</td>
-				<td><%= link_to 'Chi tiết', blog %></td>
-				<td><%= link_to 'Edit', edit_blog_path(blog) %></td>
-        <td>
-                <button class="btn btn-danger"><%= link_to 'Xóa', blog, method: :delete, data: { confirm: 'Bạn có muốn xóa danh mục '+blog.title+ ' này ko?' } %>
-                </button>
-        </td>
+				<td><%= link_to 'Chi tiết', blog %></td>			
 			</tr>
 			<% stt = stt + 1%>
 			<% end %>

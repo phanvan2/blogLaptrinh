@@ -1,5 +1,4 @@
 
-<%  %>
 <div class="container">
 	<div class="ass1-head-user">
 		<div class="ass1-head-user__content">
@@ -109,16 +108,18 @@
 	</div>
 <div class="container" align="center" style="padding:3px 40%">
 	<nav aria-label="Page navigation example"  align="center">
+		<% if @total_page > 1 %>
 		<ul class="pagination">
 			<li class="page-i
-			tem"><%= link_to "first", "/blogs?page=1" , class:"page-link"  %> </li>
+			tem"><%= link_to "first", request.env['PATH_INFO'].to_s + "?page=1" , class:"page-link"  %> </li>
 			<% for i in 1..@total_page %>
 			<%# <li class="page-item"><a class="page-link" href="#"><%= i  </a></li> %>
-			<li class="page-item"><%= link_to i, "/blogs?page="+i.to_s , class:"page-link"  %> </li>
+			<li class="page-item"><%= link_to i, request.env['PATH_INFO'].to_s+"?page="+i.to_s , class:"page-link"  %> </li>
 			<% end%>
-			<li class="page-item"><%= link_to "last", "/blogs?page="+ @total_page.to_s , class:"page-link"  %> </li>
+			<li class="page-item"><%= link_to "last", request.env['PATH_INFO'].to_s+"?page="+ @total_page.to_s , class:"page-link"  %> </li>
 
 		</ul>
+		<% end %>
 	</nav>
 </div>
 

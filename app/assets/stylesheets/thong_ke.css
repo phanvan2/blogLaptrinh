@@ -1,0 +1,59 @@
+hr{
+    border-width: 3px; border-color:#f36a5a ;  width: 100% ;size: 2px; overflow: hidden;
+}
+.thongke{
+    float: left;
+    margin-top: auto; 
+}
+.thongke p.thongke-so{
+    font-size: 30px ; 
+    color: #2ab4c0;
+    font-family: sans-serif;
+
+}
+.thongke p.thongke-gia{
+    font-size: 30px ; 
+    color: #f36a5a;
+    font-family: sans-serif;
+    
+}
+.thongke p.thongke-danhgia{
+    font-size: 30px ; 
+    color: #2ac4a0;
+    font-family: sans-serif;
+    
+}
+.thongke p.thongke-user{
+    font-size: 30px ; 
+    color: #8877a9;
+    font-family: sans-serif;
+    
+}
+.thongke p.thongke-deatil{
+    margin-top: -15px;
+    font-size: 14px; 
+    font-family: sans-serif;   
+    color: #9a9a9a;
+    margin-left: 10px;
+}
+
+.card-detail p.icon{
+    margin-top: 10px; 
+    font-size: 25px ; 
+    color: #9a9a9a;
+    float: right;
+    margin-right: 10px ; 
+
+}
+.btn-card{
+  
+    float: right;
+    border-radius: 5px;
+    height: 30px ;
+    width: 70px; 
+    border-style: none; 
+    color: #ffffff;
+    background-color:  #9a9a9a;
+    font-weight: bold ; 
+    margin-right: 10px ;
+}

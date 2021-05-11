@@ -10,21 +10,21 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
-	limit = 8
-	start = 0
-	@count_blog = Blog.where("idUser = "+ params[:id].to_s).distinct.count(:id)
-	@total_page  = (@count_blog.to_f / limit)
+    limit = 6
+    start = 0
+    @count_blog = Blog.where("idUser = "+ params[:id].to_s).distinct.count(:id)
+    @total_page  = (@count_blog.to_f / limit)
 
-	if (params[:page]) 
-		current_page = params[:page]
-		if (@count_blog.to_f / limit) > (@count_blog / limit)
-			@total_page = (@count_blog / limit) + 1
-		else 
-			@total_page = (@count_blog / limit) 
-		end
-		start = (current_page.to_i - 1 ) * limit
-		
-	end
+    if (params[:page]) 
+      current_page = params[:page]
+      if (@count_blog.to_f / limit) > (@count_blog / limit)
+        @total_page = (@count_blog / limit) + 1
+      else 
+        @total_page = (@count_blog / limit) 
+      end
+      start = (current_page.to_i - 1 ) * limit
+      
+    end
 
    
     @blogs_user = Blog.where("idUser = " +params[:id].to_s).order(created_at: :desc).limit(limit).offset(start)
@@ -41,20 +41,29 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
-    user = User.find_by(username:user_params[:username])
-    if user 
-      redirect_to '/register'
-    end
-    @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: "User was successfully created." }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+    
+    if user_params[:password_digest] === user_params[:Repass] 
+      count = User.where("email = ?" ,user_params[:email]).count()
+      if count  < 1
+        user = User.find_by(username:user_params[:username])
+        if user 
+          redirect_to '/register'
+        end
+        @user = User.new(username: user_params[:username] , email: user_params[:email], password_digest: user_params[:password_digest], quyen: 0, img_user: user_params[:img_user])
+        respond_to do |format|
+          if @user.save
+            format.html { redirect_to @user, alert: "User was successfully created." }
+            format.json { render :show, status: :created, location: @user }
+          else
+            format.html { render :new, status: :unprocessable_entity }
+            format.json { render json: @user.errors, status: :unprocessable_entity }
+          end
+        end
+      else 
+        redirect_to '/register' , alert: "Email đã tồn tại"
       end
+    else 
+      redirect_to '/register' , alert: "Mật khẩu Không trùng khớp"
     end
   end
 
@@ -76,7 +85,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
+      format.html { redirect_to "/admin/user?page=1" , notice: "User was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -85,7 +94,8 @@ class UsersController < ApplicationController
     @user = User.all
 
   end
-
+  def register 
+  end 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -94,6 +104,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:username, :email, :password_digest, :quyen, :img_user)
+      params.require(:user).permit(:username, :email, :password_digest, :quyen, :img_user, :Repass)
     end
 end

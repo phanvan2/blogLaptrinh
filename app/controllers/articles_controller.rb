@@ -4,4 +4,6 @@ class ArticlesController < ApplicationController
     @blogs_popular = Blog.where("status = 1 ").order(created_at: :asc).take(6)
     @blogs_demo = Blog.where("status = 1 ").order(created_at: :desc).take(3)
   end
+  def contact 
+  end
 end

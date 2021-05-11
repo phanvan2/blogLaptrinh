@@ -1,0 +1,56 @@
+	<% if session[:current_user_id] %>
+	    <%  user = User.find_by_id(session[:current_user_id]) %>
+        <% paramProfile = "/user/" + user.id.to_s + "/profile"  %>
+		<% paramEdit = "/user/" + user.id.to_s + "/update"  %>
+    <% else %>
+    <% end%>
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand" href="<%= '/admin' %>">Trang quản trị</a>
+            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+              
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ml-auto ml-md-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#!" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       	<% if user.img_user.attached? %> 
+                            <%= image_tag user.img_user,style: "width: 26px;height: 26px;margin-top:0px; border-radius:50px;" %> 
+                        <% else %>
+                            <%= image_tag "img_avatar.png",style: "width: 26px;height: 26px;margin-top:0px; border-radius:50px;" %> 
+                        <%end%>   
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <li>
+                            <button class="dropdown-item" type="button">
+                                <%= link_to 'Trang chủ người dùng', "/" %> 
+                            </button>
+                        </li>
+                        <li>
+                            <button class="dropdown-item" type="button">
+                                <%= link_to 'Thông tin', paramProfile,  class:"" %> 
+                            </button>
+                        </li>
+                        <li>
+                            <button class="dropdown-item" type="button">
+                                <%= link_to 'Cập nhật thông tin', paramEdit,  class:"" %> 
+                            </button>
+                        </li>
+                        <li>
+                            <button class="dropdown-item" type="button">
+                                <%= link_to 'Đăng Xuất', "/logout", data: { confirm: 'Bạn có thực sự muốn đăng xuất ?' } %> 
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+               
+            </ul>
+            
+        </nav>
+
+
+
+
+         
+            

@@ -69,13 +69,14 @@
   	<div class="update-infor-user form-group">
 		  	<div class="col-sm-6 form-group">
 		     	<%= form.label :Username , class: "col-md-2 control-label"  %>
-		    	<%= form.text_field :username , class: "form-control", placeholder: "Enter user name" %>
+		    	<%= form.text_field :username , class: "form-control", placeholder: "Enter user name" , html:"require" %>
 		  	</div>
 			
 		  	<div class="col-sm-6 form-group">
 				<%= form.label :Email, class:"col-md-2 control-label" %>
 				<%= form.text_field :email, class: "form-control", placeholder: "Enter your email" %>
 			</div>
+		<% if request.env['PATH_INFO'].split("/")[1] === "register" %>
 
 		  	<div class="col-sm-6 form-group">
 				<%= form.label :Password, class:"col-md-2 control-label" %>
@@ -86,7 +87,7 @@
 		    	<%= form.label :"Repassword", class:"col-md-2 control-label" %>
 		    	<%= form.text_field :Repass, class: "form-control", placeholder: "Enter your Re password" %>
 		  	</div>
-
+		<% end %>
 			<div class="col-sm-6 form-group">
 				
 				<%= form.label :img_user, "Image blog" %>
@@ -96,7 +97,7 @@
 			</div>
 
 		  <div class="actions">
-		    <%= form.submit "Cập nhật thông tin",class:"btn btn-primary" %>
+		    <%= form.submit  class:"btn btn-primary" %>
 		  </div>
 	</div>	  
 <% end %>

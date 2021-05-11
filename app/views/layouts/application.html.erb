@@ -28,9 +28,23 @@
   <script>
 
   </script>
-	<%= render "menu/index" %>
+	<% if request.env['PATH_INFO'].split("/")[1] === "admin" %>
+    	<%= render 'admin/index'%>
+     
+  	<% else %>
+    	<%= render "menu/index" %>
+  	<% end %>
 
     <%= yield %>	
+	
+	<% if request.env['PATH_INFO'].split("/")[1] === "admin" %>
+					</div>
+        		</main>
+        	</div>
+    	</div>
+
+	<% end %>
+
 	<div class="container_fluid" style="height:80px">
 	</div>
 	<%= render "footer/index" %>

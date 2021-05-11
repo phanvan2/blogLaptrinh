@@ -46,7 +46,6 @@
 			</div>
 
 			<% end %>
-			<%= notice%>
 
 		
 		</div>
@@ -93,7 +92,7 @@
 				</div>
 			
 				<div class="reply-comment" id="View_reply<%= comment.id %>" >
-					<%  @reply_comments = ReplyComment.where("idComment LIKE ?", comment.id ) %>
+					<%  @reply_comments = ReplyComment.where("idComment LIKE ?", comment.id ).order(created_at: :desc) %>
 					<% if @reply_comments %>
 					
 						<%  @reply_comments.each do |reply_comment| %>

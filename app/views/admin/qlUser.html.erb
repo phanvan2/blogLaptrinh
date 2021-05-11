@@ -1,68 +1,64 @@
-<style type="text/css">
-  .title-cntt{
-  font-weight: bold;
-    border-top: 3px solid #bada55;
-    border-bottom: 3px solid #bada55;
-    padding: .5rem;
-  }
-</style>
-<p id="notice"><%= notice %></p>
-<h1 style="margin-top:50px;margin-bottom:50px;text-align: center;">
-  <span class="title-cntt">
-    Danh sách Blog
-  </span>
-</h1>
-<div class="table-wrapper">
+
+<h3 style="margin-top: 50px;margin-bottom:40px;text-align: center;">
+    <span class="title_main">
+        QUẢN LÝ NGƯỜI DÙNG
+    </span>
+</h3>
+<div class="table-wrapper" >
     <table class="fl-table">
-		<thead>
-			<tr>
-				<th>STT</th>
+        <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên người dùng</th>
+            <th>Email</th>
+			<th>Số bài đăng</th>
+			<th>Vai trò </th>
+            <th></th>
+			<th></th>
 			
-				<th>Tiêu đề</th>
+        </tr>
+        </thead>
+        <tbody>
+			<% stt = 1 %>
+           	<% @users.each do |user| %>
+				<% if user.quyen == 1 %>
+					<% role = "Người quản trị"%>
+					<% check = "checked" %>
 				
-				<th>Ngày đăng </th>
-				<th>Trang thái </th>
-				<th></th>
-				<th></th>
-				<th></th>
-			</tr>
-		</thead>
+				<% elsif user.quyen == 0%>
+					<% role = "Người dùng"%>
+					<% check = "" %>
 
- 		 <tbody>
-		  	<% stt = 1%>
-			<% @blogs.each do |blog| %>
-			<tr>
-				<td><%= stt %></td>
-				<td><%= blog.title %></td>
-				<td><%= blog.created_at.strftime("%d/%m/%Y %r" )  %></td>
-				<td>
-					<% if blog.status == 1 %>
-						<% check = "checked" %>
-					<% else %>
-						<% check = "" %>
-					<% end %>
-        
-          <label class="rocker rocker-small">
-            <input type="checkbox" data-remote="true"  data-url="/update_status" data-params="id=<%= blog.id %> " data-method="post" <%= check %>   >
-            <span class="switch-left">Yes</span>
-            <span class="switch-right">No</span>
-          </label>
-        
-				</td>
-				<td><%= link_to 'Chi tiết', blog %></td>
-				<td><%= link_to 'Edit', edit_blog_path(blog) %></td>
-        <td>
-                <button class="btn btn-danger"><%= link_to 'Xóa', blog, method: :delete, data: { confirm: 'Bạn có muốn xóa danh mục '+blog.title+ ' này ko?' } %>
-                </button>
-        </td>
-			</tr>
-			<% stt = stt + 1%>
-			<% end %>
-		</tbody>
-	</table>
+				<%end%>
+				<% if user.id == session[:current_user_id] %>
+					<% visbily = "hidden"%>
+				<% else %>
+					<% visbily = ""%>
+				<%end %>
+				<%  count_blog = Blog.where("idUser = "+ user.id.to_s).distinct.count(:id)%>
+        <tr>
+            <td><%= stt %></td>
+            <td><%=user.username  %></td>
+            <td><%= user.email %></td>
+			<td><%= count_blog %></td>
+           <td>
+				<label class="rocker rocker-small" <%= visbily %> >
+					<input type="checkbox" data-remote="true"   data-url="/update_quyen" data-params="id=<%= user.id %> " data-method="post" <%= check %>    >
+					<span class="switch-left">ad</span>
+					<span class="switch-right">user</span>
+				</label>	
+			</td>
 
+			<td><button class="btn btn-outline-primary"><%= link_to 'Chi tiết', user %></button></td>
+			
+			<td><button class="btn btn-danger"><%= link_to 'Xóa', user, method: :delete, data: { confirm: 'Are you sure?' } %></button></td>
+		</tr>
+		<% stt = stt+ 1%>
+        <% end %>
+
+        <tbody>
+    </table>
 </div>
-<br>
 <div class="container" align="center" style="padding:3px 40%">
 	<nav aria-label="Page navigation example"  align="center">
 		<% if @total_page > 1 %>
@@ -79,15 +75,9 @@
 		<% end %>
 	</nav>
 </div>
+<br>
 
 <style>
-
-.mid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top:1em;
-}
 
 
 /* Switch starts here */

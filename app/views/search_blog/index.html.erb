@@ -91,14 +91,16 @@
 		</div>
 <div class="container" align="center" style="padding:3px 40%">
 	<nav aria-label="Page navigation example"  align="center">
-		<ul class="pagination">
-			<li class="page-item"><%= link_to "first", "/search?"+url+"&page=1" , class:"page-link"  %> </li>
-			<% for i in 1..@total_page %>
-			<%# <li class="page-item"><a class="page-link" href="#"><%= i  </a></li> %>
-			<li class="page-item"><%= link_to i, "/search?"+url+"&page="+i.to_s , class:"page-link"  %> </li>
-			<% end%>
-			<li class="page-item"><%= link_to "last", "/search?"+url+"&page="+ @total_page.to_s , class:"page-link"  %> </li>
+		<% if @total_page > 1 %>
+			<ul class="pagination">
+				<li class="page-item"><%= link_to "first", "/search?"+url+"&page=1" , class:"page-link"  %> </li>
+				<% for i in 1..@total_page %>
+				<%# <li class="page-item"><a class="page-link" href="#"><%= i  </a></li> %>
+				<li class="page-item"><%= link_to i, "/search?"+url+"&page="+i.to_s , class:"page-link"  %> </li>
+				<% end%>
+				<li class="page-item"><%= link_to "last", "/search?"+url+"&page="+ @total_page.to_s , class:"page-link"  %> </li>
 
-		</ul>
+			</ul>
+		<% end %>
 	</nav>
 </div>

@@ -1,0 +1,2 @@
+module ThongKeHelper
+end
