@@ -35,18 +35,13 @@
 				<td><%= stt %></td>
 				<td><%= blog.title %></td>
 				<td><%= blog.created_at.strftime("%d/%m/%Y %r" )  %></td>
-				<td>
+				<td style="color:red">
 					<% if blog.status == 1 %>
-						<% check = "checked" %>
+						<%=  "Đã duyệt" %>
 					<% else %>
-						<% check = "" %>
+						<%= "chưa duyệt" %>
 					<% end %>
-        
-          <label class="rocker rocker-small">
-            <input type="checkbox" data-remote="true"  data-url="/update_status" data-params="id=<%= blog.id %> " data-method="post" <%= check %>   >
-            <span class="switch-left">Yes</span>
-            <span class="switch-right">No</span>
-          </label>
+      
         
 				</td>
 				<td><%= link_to 'Chi tiết', blog %></td>
